@@ -13,7 +13,22 @@
  * - 2025-12-22: file created ~ Navin Kumar.
  */
 #pragma once
+#include "GameState.h"
+#include <set>
 
 class Card {
+    public:
+        Card() = default;
+        ~Card() = default;
 
+        GameState cardProperty;
+
+        void addTag(const std::string& tag);
+
+        bool hasTag(const std::string& tag) const;
+
+        bool removeTag(const std::string& tag);
+
+    private:
+        std::set<std::string> cardTags;
 };

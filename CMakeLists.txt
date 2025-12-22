@@ -4,4 +4,6 @@ project(TurnCraft)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(TurnCraft main.cpp
-        src/Engine.cpp)
+        src/Engine.cpp
+        src/Card.cpp
+)
