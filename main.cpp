@@ -4,6 +4,7 @@
 #include "include/Card.h"
 #include "include/Engine.h"
 #include "include/GameState.h"
+#include "include/nlohmann/json.hpp"
 
 int main() {
     Engine game;
@@ -26,15 +27,15 @@ int main() {
 
     std::cout << g.get<std::string>("std").value_or("null");
 
-    Card c;
+    nlohmann::json j;
+    j["x"] = 678;
+    j["y"] = true;
+    j["z"] = "temp_str";
+    j["tags"] = {"hehe", "hj"};
 
-    c.addTag("hehe");
+    Card *c = new Card(j);
 
-    std::cout << c.hasTag("hehe");
-
-    c.removeTag("hehe");
-
-    std::cout << c.hasTag("hehe");
+    c->printAsJson();
 
     return 0;
 }

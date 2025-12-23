@@ -13,6 +13,7 @@
  * - 2025-12-22: created file ~ Navin Kumar.
  * - 2025-12-22: implementated game state entity that can handle <int, bool, float, string> variables dynamically.
  *               set(), get(), has(), remove(), getAsString(), applyDelta() intialised ~ Navin Kumar.
+ * - 2025-12-23: implemented iterator functionality for the gameStateMap using begin(), end() ~ Navin Kumar.
  */
 
 #pragma once
@@ -77,6 +78,9 @@ class GameState{
             }
             return std::to_string(get<T>(key).value());
         }
+
+        auto begin() { return std::begin(gameStateMap); }
+        auto end() { return std::end(gameStateMap); }
 
     private:
         std::unordered_map<std::string, varType> gameStateMap;
