@@ -79,8 +79,8 @@ class GameState{
             return std::to_string(get<T>(key).value());
         }
 
-        auto begin() { return std::begin(gameStateMap); }
-        auto end() { return std::end(gameStateMap); }
+        auto begin() const { return std::begin(gameStateMap); }
+        auto end() const { return std::end(gameStateMap); }
 
     private:
         std::unordered_map<std::string, varType> gameStateMap;

@@ -34,7 +34,7 @@ bool Card::removeTag(const std::string &tag) {
     return cardTags.erase(tag) > 0;
 }
 
-void Card::printAsJson() {
+json Card::toJson() const{
     json j;
 
     for (auto &[fst, snd] : cardProperty) {
@@ -43,7 +43,7 @@ void Card::printAsJson() {
 
     j["tags"] = cardTags;
 
-    std::cout << j.dump(4) << std::endl;
+    return j;
 }
 
 void Card::initFromJson(const json& j) {
