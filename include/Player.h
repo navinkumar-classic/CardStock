@@ -24,15 +24,17 @@
 
 class Player {
 public:
- using ZoneMap = std::unordered_map<std::string, CardZone*>;
+ using ZoneMap = std::unordered_map<std::string, CardZone>;
 
  Player(int id, const std::string& name);
 
  int getId() const;
  const std::string& getName() const;
 
- void addZone(const std::string& zoneName, CardZone* zone);
- CardZone* getZone(const std::string& zoneName) const;
+ void addZone(const std::string& zoneName, CardZone &&zone);
+
+ CardZone *getZone(const std::string &zoneName);
+ const CardZone* getZone(const std::string& zoneName) const;
  const ZoneMap& getAllZones() const;
  size_t getZoneSize(const std::string& zoneName) const;
 

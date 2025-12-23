@@ -22,6 +22,9 @@
 class CardZone {
     public:
         CardZone(bool hidden);
+
+        CardZone(CardZone&&) noexcept = default;
+        CardZone& operator=(CardZone&&) noexcept = default;
         ~CardZone() = default;
 
         void setHidden(bool hidden);

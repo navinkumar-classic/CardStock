@@ -26,14 +26,21 @@ const std::string& Player::getName() const {
     return name;
 }
 
-void Player::addZone(const std::string& zoneName, CardZone* zone) {
-    zones[zoneName] = zone;
+void Player::addZone(const std::string& zoneName, CardZone &&zone) {
+    zones.emplace(zoneName, std::move(zone));
 }
 
-CardZone* Player::getZone(const std::string& zoneName) const {
+CardZone* Player::getZone(const std::string& zoneName) {
     auto it = zones.find(zoneName);
     if (it != zones.end())
-        return it->second;
+        return &it->second;
+    return nullptr;
+}
+
+const CardZone* Player::getZone(const std::string& zoneName) const {
+    auto it = zones.find(zoneName);
+    if (it != zones.end())
+        return &it->second;
     return nullptr;
 }
 
@@ -44,7 +51,7 @@ const Player::ZoneMap& Player::getAllZones() const {
 size_t Player::getZoneSize(const std::string& zoneName) const {
     auto it = zones.find(zoneName);
     if (it != zones.end())
-        return it->second->size();
+        return it->second.size();
     return 0;
 }
 
