@@ -11,9 +11,34 @@
  *
  * Change Log:
  * - 2025-12-22: file created ~ Navin Kumar.
+ * - 2025-12-23: added cardProperty, cardTags and ability to serialize and deserialize into json ~ Navin Kumar.
  */
 #pragma once
+#include "GameState.h"
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
+#include <set>
 
 class Card {
+    public:
+        Card() = default;
 
+        Card(const json& json);
+
+        ~Card() = default;
+
+        GameState cardProperty;
+
+        void addTag(const std::string& tag);
+
+        bool hasTag(const std::string& tag) const;
+
+        bool removeTag(const std::string& tag);
+
+        void printAsJson();
+
+    private:
+        void initFromJson(const json& json);
+
+        std::set<std::string> cardTags;
 };
