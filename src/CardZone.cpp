@@ -12,6 +12,7 @@
  * Change Log:
  * - 2025-12-23: file created ~ Navin Kumar.
  * - 2025-12-23: implemented cardQueue and related functionality ~ Navin Kumar.
+ * - 2025-12-24: implemented functionality to serialize/deserialize into JSON ~ Navin Kumar.
  */
 
 #include "../include/CardZone.h"
@@ -19,6 +20,10 @@
 #include <algorithm>
 
 CardZone::CardZone(bool hidden):hidden(hidden), gen(std::random_device{}()) {}
+
+CardZone::CardZone(bool hidden, const json& json):hidden(hidden), gen(std::random_device{}()) {
+    initFromJson(json);
+}
 
 void CardZone::setHidden(bool hide) {
     hidden = hide;
@@ -69,5 +74,34 @@ const Card& CardZone::peekBack() const {
 
 void CardZone::shuffle() {
     std::shuffle(cardQueue.begin(), cardQueue.end(), gen);
+}
+
+void CardZone::initFromJson(const json &json) {
+    if (json.contains("hidden") && json["hidden"].is_boolean()) {
+        setHidden(json["hidden"]);
+    }
+
+    if (json.contains("cards") && json["cards"].is_array()) {
+        for (auto& cardJson : json["cards"]) {
+            if (cardJson.is_object()) {
+                pushBack(std::move(Card(cardJson)));
+            }
+        }
+    }
+}
+
+json CardZone::toJson() const {
+    json j = json::object();
+
+    std::vector<json> cardJson;
+
+    for (const auto& card : cardQueue) {
+        cardJson.push_back(card.toJson());
+    }
+
+    j["cards"] = cardJson;
+    j["hidden"] = hidden;
+
+    return j;
 }
 

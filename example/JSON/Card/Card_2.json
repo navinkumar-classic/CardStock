@@ -1,0 +1,11 @@
+{
+    "cardProperty": {
+        "attack": 19,
+        "health": 1,
+        "rarity": "common"
+    },
+    "tags": [
+        "magic",
+        "water"
+    ]
+}

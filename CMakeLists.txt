@@ -7,4 +7,5 @@ add_executable(TurnCraft main.cpp
         src/Engine.cpp
         src/Card.cpp
         src/CardZone.cpp
+        src/GameState.cpp
 )

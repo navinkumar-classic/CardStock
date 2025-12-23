@@ -7,6 +7,8 @@
 #include "include/GameState.h"
 #include "include/nlohmann/json.hpp"
 
+#include <fstream>
+
 int main() {
     Engine game;
 
@@ -23,26 +25,14 @@ int main() {
     std::cout << g.get<std::string>("std").value_or("null");
     */
 
-    nlohmann::json j;
-    j["x"] = 678;
-    j["y"] = true;
-    j["z"] = "temp_str";
-    j["tags"] = {"hehe", "hj"};
+    std::ifstream f("../example/JSON/CardZone/CardZone_1.json");
 
-    Card c1(j);
+    json czj = json::parse(f);
+    CardZone cz(true, czj);
 
-    std::cout << c1.toJson().dump(4) << std::endl;
+    cz.shuffle();
 
-    j["x"] = 9999;
-
-    Card c2(j);
-
-    CardZone cz(true);
-
-    cz.pushFront(std::move(c1));
-    cz.pushBack(std::move(c2));
-
-    std::cout << cz.peekFront().toJson().dump(4);
+    std::cout << cz.peekFront().toJson().dump(4) << std::endl;
 
     return 0;
 }

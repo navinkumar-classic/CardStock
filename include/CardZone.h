@@ -12,6 +12,7 @@
  * Change Log:
  * - 2025-12-22: file created ~ Navin Kumar.
  * - 2025-12-23: added cardQueue and related functionality ~ Navin Kumar.
+ * - 2025-12-24: added functionality to serialize/deserialize into JSON ~ Navin Kumar.
  */
 
 #pragma once
@@ -22,6 +23,7 @@
 class CardZone {
     public:
         CardZone(bool hidden);
+        CardZone(bool hidden, const json& json);
         ~CardZone() = default;
 
         void setHidden(bool hidden);
@@ -45,6 +47,9 @@ class CardZone {
         auto end() { return cardQueue.end(); }
 
         void shuffle();
+
+        void initFromJson(const json& json);
+        json toJson() const;
 
     private:
         bool hidden;

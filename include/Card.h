@@ -11,7 +11,7 @@
  *
  * Change Log:
  * - 2025-12-22: file created ~ Navin Kumar.
- * - 2025-12-23: added cardProperty, cardTags and ability to serialize and deserialize into json ~ Navin Kumar.
+ * - 2025-12-23: added cardProperty, cardTags and ability to serialize and deserialize into JSON ~ Navin Kumar.
  * - 2025-12-23: prevented compiler from copying the card ~ Navin Kumar.
  */
 #pragma once
@@ -36,17 +36,16 @@ class Card {
 
         bool removeTag(const std::string& tag);
 
-        json toJson() const;
-
         Card(const Card&) = delete;
         Card& operator=(const Card&) = delete;
 
         Card(Card&&) = default;
         Card& operator=(Card&&) = default;
 
+        void initFromJson(const json& json);
+        json toJson() const;
 
     private:
-        void initFromJson(const json& json);
 
         std::set<std::string> cardTags;
 };
