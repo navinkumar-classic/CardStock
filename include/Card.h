@@ -12,6 +12,7 @@
  * Change Log:
  * - 2025-12-22: file created ~ Navin Kumar.
  * - 2025-12-23: added cardProperty, cardTags and ability to serialize and deserialize into json ~ Navin Kumar.
+ * - 2025-12-23: prevented compiler from copying the card ~ Navin Kumar.
  */
 #pragma once
 #include "GameState.h"
@@ -35,7 +36,14 @@ class Card {
 
         bool removeTag(const std::string& tag);
 
-        void printAsJson();
+        json toJson() const;
+
+        Card(const Card&) = delete;
+        Card& operator=(const Card&) = delete;
+
+        Card(Card&&) = default;
+        Card& operator=(Card&&) = default;
+
 
     private:
         void initFromJson(const json& json);
