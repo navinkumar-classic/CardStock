@@ -19,14 +19,18 @@
 #include <random>
 #include <algorithm>
 
-CardZone::CardZone(bool hidden):hidden(hidden), gen(std::random_device{}()) {}
+CardZone::CardZone(bool hiddenGeneral, bool hiddenPlayer):hiddenGeneral(hiddenGeneral), hiddenPlayer(hiddenPlayer), gen(std::random_device{}()) {}
 
-CardZone::CardZone(bool hidden, const json& json):hidden(hidden), gen(std::random_device{}()) {
+CardZone::CardZone(const json& json):hiddenGeneral(true), hiddenPlayer(true), gen(std::random_device{}()) {
     initFromJson(json);
 }
 
-void CardZone::setHidden(bool hide) {
-    hidden = hide;
+void CardZone::setHiddenGeneral(bool hidden) {
+    hiddenGeneral = hidden;
+}
+
+void CardZone::setHiddenPlayer(bool hidden) {
+    hiddenPlayer = hidden;
 }
 
 void CardZone::pushFront(Card &&card) {
@@ -77,8 +81,12 @@ void CardZone::shuffle() {
 }
 
 void CardZone::initFromJson(const json &json) {
-    if (json.contains("hidden") && json["hidden"].is_boolean()) {
-        setHidden(json["hidden"]);
+    if (json.contains("hiddenGeneral") && json["hiddenGeneral"].is_boolean()) {
+        setHiddenGeneral(json["hiddenGeneral"]);
+    }
+
+    if (json.contains("hiddenPlayer") && json["hiddenPlayer"].is_boolean()) {
+        setHiddenPlayer(json["hiddenPlayer"]);
     }
 
     if (json.contains("cards") && json["cards"].is_array()) {
@@ -100,7 +108,8 @@ json CardZone::toJson() const {
     }
 
     j["cards"] = cardJson;
-    j["hidden"] = hidden;
+    j["hiddenGeneral"] = hiddenGeneral;
+    j["hiddenPlayer"] = hiddenPlayer;
 
     return j;
 }

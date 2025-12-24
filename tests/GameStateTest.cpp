@@ -102,3 +102,31 @@ TEST(GameStateTest, elementsToJson) {
     EXPECT_EQ(jt["string"], "string");
 }
 
+TEST(GameStateTest, elementsToString) {
+    GameState gs;
+
+    gs.set<int>("int", 1);
+    gs.set<float>("float", 1.101);
+    gs.set<bool>("bool", true);
+    gs.set<std::string>("string", "string");
+
+
+    EXPECT_EQ("1", gs.getAsString<int>("int"));
+    EXPECT_EQ("1.101000", gs.getAsString<float>("float"));
+    EXPECT_EQ("true", gs.getAsString<bool>("bool"));
+    EXPECT_EQ("string", gs.getAsString<std::string>("string"));
+}
+
+TEST(GameStateTest, elementsApplyDelta) {
+    GameState gs;
+
+    gs.set<int>("int", 1);
+    gs.set<float>("float", 1.101);
+
+    gs.applyDelta<int>("int", 10);
+    gs.applyDelta<float>("float", 1.101);
+
+
+    EXPECT_EQ(11, gs.get<int>("int"));
+    EXPECT_EQ(2.202f, gs.get<float>("float"));
+}

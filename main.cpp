@@ -28,11 +28,11 @@ int main() {
     std::ifstream f("../example/JSON/CardZone/CardZone_1.json");
 
     json czj = json::parse(f);
-    CardZone cz(true, czj);
+    CardZone cz(czj);
 
     cz.shuffle();
 
-    std::cout << cz.peekFront().toJson().dump(4) << std::endl;
+    std::cout << cz.toJson().dump(4) << std::endl;
 
     return 0;
 }

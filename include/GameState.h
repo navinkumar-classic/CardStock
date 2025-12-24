@@ -77,10 +77,20 @@ class GameState{
         }
 
         template <varTypeName T> std::optional<std::string> getAsString(const std::string& key) {
-            if (!get<T>(key)) {
+            auto val = get<T>(key);
+            if (!val) {
                 return std::nullopt;
             }
-            return std::to_string(get<T>(key).value());
+
+            if constexpr (std::is_same_v<T, std::string>) {
+                return val.value();
+            }
+            else if constexpr ( std::is_same_v<T, bool>) {
+                return val.value() ? "true" : "false";
+            }
+            else {
+                return std::to_string(val.value());
+            }
         }
 
         auto begin() const { return std::begin(gameStateMap); }

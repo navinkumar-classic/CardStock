@@ -33,7 +33,7 @@ public:
 
  void addZone(const std::string& zoneName, CardZone &&zone);
 
- CardZone *getZone(const std::string &zoneName);
+ CardZone* getZone(const std::string &zoneName);
  const CardZone* getZone(const std::string& zoneName) const;
  const ZoneMap& getAllZones() const;
  size_t getZoneSize(const std::string& zoneName) const;

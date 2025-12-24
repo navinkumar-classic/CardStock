@@ -22,15 +22,18 @@
 
 class CardZone {
     public:
-        CardZone(bool hidden);
-        CardZone(bool hidden, const json& json);
+        CardZone(bool hiddenGeneral, bool hiddenPlayer);
+        CardZone(const json& json);
 
         CardZone(CardZone&&) noexcept = default;
         CardZone& operator=(CardZone&&) noexcept = default;
         ~CardZone() = default;
 
-        void setHidden(bool hidden);
-        bool getHidden() const {return hidden;}
+        void setHiddenGeneral(bool hidden);
+        bool getHiddenGeneral() const {return hiddenGeneral;}
+
+        void setHiddenPlayer(bool hidden);
+        bool getHiddenPlayer() const {return hiddenPlayer;}
 
         GameState cardZoneProperty;
 
@@ -55,7 +58,8 @@ class CardZone {
         json toJson() const;
 
     private:
-        bool hidden;
+        bool hiddenGeneral;
+        bool hiddenPlayer;
         std::deque<Card> cardQueue;
         std::mt19937 gen;
 

@@ -34,5 +34,6 @@
             ]
         }
     ],
-    "hidden": true
+    "hiddenGeneral": true,
+    "hiddenPlayer": false
 }
