@@ -62,16 +62,38 @@ TEST(CardZoneMapTest, AddCardBottom) {
 }
 
 // ---------- json stuff ------------
-TEST(CardZoneMapTest, InitFromJson) {
+TEST(CardZoneMapTest, InitFromJson_MultipleZones) {
     auto j = R"(
     {
-        "hand": {
+        "hand1": {
             "hiddenGeneral": false,
             "hiddenPlayer": true,
             "cards": [
                 {
                     "cardProperty": { "attack": 3 },
                     "tags": ["melee"]
+                }
+            ]
+        },
+        "hand2": {
+            "hiddenGeneral": true,
+            "hiddenPlayer": false,
+            "cards": [
+                {
+                    "cardProperty": {
+                        "attack": 5,
+                        "health": 10,
+                        "rarity": "epic"
+                    },
+                    "tags": ["fire", "spell"]
+                },
+                {
+                    "cardProperty": {
+                        "attack": 19,
+                        "health": 1,
+                        "rarity": "common"
+                    },
+                    "tags": ["magic", "water"]
                 }
             ]
         }
@@ -81,17 +103,22 @@ TEST(CardZoneMapTest, InitFromJson) {
     CardZoneMap zoneMap;
     zoneMap.initFromJson(j);
 
-    ASSERT_TRUE(zoneMap.hasZone("hand"));
+    EXPECT_TRUE(zoneMap.hasZone("hand1"));
+    EXPECT_TRUE(zoneMap.hasZone("hand2"));
+
+    EXPECT_EQ(zoneMap.getZoneSize("hand1"), 1);
+    EXPECT_EQ(zoneMap.getZoneSize("hand2"), 2);
 
     auto out = zoneMap.toJson();
 
-    EXPECT_FALSE(out["hand"]["hiddenGeneral"].get<bool>());
-    EXPECT_TRUE(out["hand"]["hiddenPlayer"].get<bool>());
+    EXPECT_FALSE(out["hand1"]["hiddenGeneral"].get<bool>());
+    EXPECT_TRUE(out["hand1"]["hiddenPlayer"].get<bool>());
 
-    EXPECT_EQ(j, out);
+    EXPECT_TRUE(out["hand2"]["hiddenGeneral"].get<bool>());
+    EXPECT_FALSE(out["hand2"]["hiddenPlayer"].get<bool>());
 }
 
-TEST(CardZoneMapTest, ToJson) {
+TEST(CardZoneMapTest, ToJson_MultipleZones) {
     auto j = R"(
     {
         "hand": {
@@ -99,10 +126,35 @@ TEST(CardZoneMapTest, ToJson) {
             "hiddenPlayer": true,
             "cards": [
                 {
-                    "cardProperty": { "attack": 3 },
-                    "tags": ["melee"]
+                    "cardProperty": {
+                        "attack": 5,
+                        "health": 10,
+                        "rarity": "epic"
+                    },
+                    "tags": ["fire", "spell"]
+                },
+                {
+                    "cardProperty": {
+                        "attack": 19,
+                        "health": 1,
+                        "rarity": "common"
+                    },
+                    "tags": ["magic", "water"]
+                },
+                {
+                    "cardProperty": {
+                        "attack": 25,
+                        "health": 15,
+                        "rarity": "rare"
+                    },
+                    "tags": ["air", "water"]
                 }
             ]
+        },
+        "deck": {
+            "hiddenGeneral": true,
+            "hiddenPlayer": false,
+            "cards": []
         }
     }
     )"_json;
@@ -114,4 +166,3 @@ TEST(CardZoneMapTest, ToJson) {
 
     EXPECT_EQ(j, out);
 }
-
