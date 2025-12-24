@@ -23,7 +23,6 @@ using json = nlohmann::json;
 class Card {
     public:
         Card() = default;
-
         Card(const json& json);
 
         ~Card() = default;
@@ -31,9 +30,7 @@ class Card {
         GameState cardProperty;
 
         void addTag(const std::string& tag);
-
         bool hasTag(const std::string& tag) const;
-
         bool removeTag(const std::string& tag);
 
         Card(const Card&) = delete;
@@ -46,6 +43,5 @@ class Card {
         json toJson() const;
 
     private:
-
         std::set<std::string> cardTags;
 };
