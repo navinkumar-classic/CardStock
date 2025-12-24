@@ -24,6 +24,9 @@ class CardZone {
     public:
         CardZone(bool hidden);
         CardZone(bool hidden, const json& json);
+
+        CardZone(CardZone&&) noexcept = default;
+        CardZone& operator=(CardZone&&) noexcept = default;
         ~CardZone() = default;
 
         void setHidden(bool hidden);
