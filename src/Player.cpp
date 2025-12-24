@@ -26,49 +26,30 @@ const std::string& Player::getName() const {
     return name;
 }
 
-void Player::addZone(const std::string& zoneName, CardZone &&zone) {
-    zones.emplace(zoneName, std::move(zone));
+bool Player::addZone(const std::string& zoneName, CardZone &&zone) {
+    return zoneMap.addZone(name, std::move(zone));
 }
 
 CardZone* Player::getZone(const std::string& zoneName) {
-    auto it = zones.find(zoneName);
-    if (it != zones.end())
-        return &it->second;
-    return nullptr;
+    return zoneMap.getZone(zoneName);
 }
 
 const CardZone* Player::getZone(const std::string& zoneName) const {
-    auto it = zones.find(zoneName);
-    if (it != zones.end())
-        return &it->second;
-    return nullptr;
+    return zoneMap.getZone(zoneName);
 }
 
-const Player::ZoneMap& Player::getAllZones() const {
-    return zones;
+const CardZoneMap::ZoneMap& Player::getAllZones() const {
+    return zoneMap.getAllZones();
 }
 
 size_t Player::getZoneSize(const std::string& zoneName) const {
-    auto it = zones.find(zoneName);
-    if (it != zones.end())
-        return it->second.size();
-    return 0;
+    return zoneMap.getZoneSize(zoneName);
 }
 
-bool Player::addCardToZoneTop(const std::string& zoneName, Card&& card) const {
-    CardZone* zone = getZone(zoneName);
-    if (!zone)
-        return false;
-
-    zone->pushFront(std::move(card));
-    return true;
+bool Player::addCardToZoneTop(const std::string& zoneName, Card&& card) {
+    return zoneMap.addCardTop(zoneName, std::move(card));
 }
 
-bool Player::addCardToZoneBottom(const std::string& zoneName, Card&& card) const {
-    CardZone* zone = getZone(zoneName);
-    if (!zone)
-        return false;
-
-    zone->pushBack(std::move(card));
-    return true;
+bool Player::addCardToZoneBottom(const std::string& zoneName, Card&& card) {
+    return zoneMap.addCardBottom(zoneName, std::move(card));
 }

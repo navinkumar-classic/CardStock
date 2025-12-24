@@ -8,10 +8,12 @@ add_library(CardStockCore
         src/Card.cpp
         src/CardZone.cpp
         src/GameState.cpp
+        src/CardZoneMap.cpp
 )
 
 add_executable(CardStock
         main.cpp
+        include/CardZoneMap.h
 )
 
 target_link_libraries(CardStock
