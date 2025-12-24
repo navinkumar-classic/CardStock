@@ -1,10 +1,43 @@
 cmake_minimum_required(VERSION 3.29)
-project(TurnCraft)
+project(CardStock)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TurnCraft main.cpp
+add_library(CardStockCore
         src/Engine.cpp
         src/Card.cpp
         src/CardZone.cpp
+        src/GameState.cpp
 )
+
+add_executable(CardStock
+        main.cpp
+)
+
+target_link_libraries(CardStock
+        CardStockCore
+)
+
+include(FetchContent)
+
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+add_executable(CardStockTests
+        tests/GameStateTest.cpp
+)
+
+target_link_libraries(CardStockTests
+        CardStockCore
+        gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(CardStockTests)
