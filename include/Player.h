@@ -15,6 +15,36 @@
 
 #pragma once
 
-class Player {
+#include <string>
+#include <unordered_map>
+#include <memory>
 
+#include "Card.h"
+#include "CardZone.h"
+
+class Player {
+public:
+ using ZoneMap = std::unordered_map<std::string, CardZone>;
+
+ Player(int id, const std::string& name);
+
+ int getId() const;
+ const std::string& getName() const;
+
+ void addZone(const std::string& zoneName, CardZone &&zone);
+
+ CardZone *getZone(const std::string &zoneName);
+ const CardZone* getZone(const std::string& zoneName) const;
+ const ZoneMap& getAllZones() const;
+ size_t getZoneSize(const std::string& zoneName) const;
+
+ bool addCardToZoneTop(const std::string &zoneName, Card &&card) const;
+ bool addCardToZoneBottom(const std::string &zoneName, Card &&card) const;
+
+private:
+ int playerId;
+ std::string name;
+
+ ZoneMap zones;
+ GameState state;
 };
