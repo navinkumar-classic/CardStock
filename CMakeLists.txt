@@ -35,6 +35,7 @@ enable_testing()
 add_executable(CardStockTests
         tests/GameStateTest.cpp
         tests/CardTest.cpp
+        tests/CardZoneMapTest.cpp
 )
 
 target_link_libraries(CardStockTests
