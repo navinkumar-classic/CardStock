@@ -10,11 +10,12 @@ add_library(CardStockCore
         src/GameState.cpp
         src/CardZoneMap.cpp
         src/TurnManager.cpp
+        src/Player.cpp
+        src/ActionHandler.cpp
 )
 
 add_executable(CardStock
         main.cpp
-        include/CardZoneMap.h
 )
 
 target_link_libraries(CardStock
@@ -39,6 +40,9 @@ add_executable(CardStockTests
         tests/CardZoneMapTest.cpp
         tests/CardZoneTest.cpp
         tests/TurnManagerTest.cpp
+        tests/ActionHandlerTest.cpp
+        tests/PlayerTest.cpp
+        tests/EngineTest.cpp
 )
 
 target_link_libraries(CardStockTests

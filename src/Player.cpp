@@ -25,31 +25,3 @@ int Player::getId() const {
 const std::string& Player::getName() const {
     return name;
 }
-
-bool Player::addZone(const std::string& zoneName, CardZone &&zone) {
-    return zoneMap.addZone(name, std::move(zone));
-}
-
-CardZone* Player::getZone(const std::string& zoneName) {
-    return zoneMap.getZone(zoneName);
-}
-
-const CardZone* Player::getZone(const std::string& zoneName) const {
-    return zoneMap.getZone(zoneName);
-}
-
-const CardZoneMap::ZoneMap& Player::getAllZones() const {
-    return zoneMap.getAllZones();
-}
-
-size_t Player::getZoneSize(const std::string& zoneName) const {
-    return zoneMap.getZoneSize(zoneName);
-}
-
-bool Player::addCardToZoneTop(const std::string& zoneName, Card&& card) {
-    return zoneMap.addCardTop(zoneName, std::move(card));
-}
-
-bool Player::addCardToZoneBottom(const std::string& zoneName, Card&& card) {
-    return zoneMap.addCardBottom(zoneName, std::move(card));
-}

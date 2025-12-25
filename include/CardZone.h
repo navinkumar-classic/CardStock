@@ -25,8 +25,9 @@ class CardZone {
         CardZone(bool hiddenGeneral, bool hiddenPlayer);
         CardZone(const json& json);
 
-        CardZone(CardZone&&) noexcept = default;
-        CardZone& operator=(CardZone&&) noexcept = default;
+        //CardZone(CardZone&&) noexcept = default;
+        //CardZone& operator=(CardZone&&) noexcept = default;
+
         ~CardZone() = default;
 
         void setHiddenGeneral(bool hidden);

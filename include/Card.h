@@ -33,11 +33,11 @@ class Card {
         bool hasTag(const std::string& tag) const;
         bool removeTag(const std::string& tag);
 
-        Card(const Card&) = delete;
-        Card& operator=(const Card&) = delete;
+        //Card(const Card&) = delete;
+        //Card& operator=(const Card&) = delete;
 
-        Card(Card&&) = default;
-        Card& operator=(Card&&) = default;
+        //Card(Card&&) = default;
+        //Card& operator=(Card&&) = default;
 
         void initFromJson(const json& json);
         json toJson() const;
