@@ -51,6 +51,7 @@ class CardZone {
 
         auto begin() { return cardQueue.begin(); }
         auto end() { return cardQueue.end(); }
+        const Card& at(const size_t index) { return cardQueue.at(index); }
 
         void shuffle();
 
