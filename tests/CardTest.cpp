@@ -2,7 +2,14 @@
 #include <fstream>
 #include "../include/Card.h"
 
-TEST(CardTest, addRemoveTags) {
+TEST(CardTest, addTags) {
+    Card c;
+
+    c.addTag("test");
+    EXPECT_TRUE(c.hasTag("test"));
+}
+
+TEST(CardTest, removeTags) {
     Card c;
 
     c.addTag("test");
@@ -11,6 +18,7 @@ TEST(CardTest, addRemoveTags) {
     c.removeTag("test");
     EXPECT_FALSE(c.hasTag("test"));
 }
+
 
 TEST(CardTest, initFromJson) {
     std::ifstream f("../example/JSON/Card/Card_1.json");
