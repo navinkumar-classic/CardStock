@@ -16,33 +16,22 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
-#include <memory>
 
 #include "Card.h"
-#include "CardZone.h"
 #include "CardZoneMap.h"
 
 class Player {
-public:
- Player(int id, const std::string& name);
+    public:
+        Player(int id, const std::string &name);
 
- int getId() const;
- const std::string& getName() const;
+        int getId() const;
 
- bool addZone(const std::string& zoneName, CardZone &&zone);
- CardZone* getZone(const std::string &zoneName);
- const CardZone* getZone(const std::string& zoneName) const;
- const CardZoneMap::ZoneMap& getAllZones() const;
- size_t getZoneSize(const std::string& zoneName) const;
+        const std::string &getName() const;
 
- bool addCardToZoneTop(const std::string &zoneName, Card &&card);
- bool addCardToZoneBottom(const std::string &zoneName, Card &&card);
+        CardZoneMap zoneMap;
+        GameState state;
 
-private:
- int playerId;
- std::string name;
-
- CardZoneMap zoneMap;
- GameState state;
+    private:
+        int playerId;
+        std::string name;
 };

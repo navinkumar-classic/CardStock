@@ -1,0 +1,17 @@
+{
+    "players": [
+        {
+            "id": 0,
+            "name": "navin"
+        },
+        {
+            "id": 1,
+            "name": "vishal"
+        },
+        {
+            "id": 2,
+            "name": "sriram"
+        }
+    ],
+    "numPlayers": 3
+}
