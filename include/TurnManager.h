@@ -34,11 +34,11 @@ public:
 
     void init(size_t playerCount);
 
-    size_t getCurrentPlayerIndex() const;
-    size_t getTurnNumber() const;
-    TurnPhase getPhase() const;
+    [[nodiscard]] size_t getCurrentPlayerIndex() const;
+    [[nodiscard]] size_t getTurnNumber() const;
+    [[nodiscard]] TurnPhase getPhase() const;
 
-    bool isPlayersTurn(size_t playerIndex) const;
+    [[nodiscard]] bool isPlayersTurn(size_t playerIndex) const;
 
     void nextPhase();
     void endTurn();

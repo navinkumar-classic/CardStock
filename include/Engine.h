@@ -16,6 +16,7 @@
 
 #pragma once
 #include "ActionHandler.h"
+#include "TurnManager.h"
 #include "Player.h"
 
 class Engine {
@@ -34,6 +35,7 @@ class Engine {
         auto playersSize() const { return players.size(); }
 
         ActionHandler actionHandler;
+        TurnManager turnManager;
         CardZoneMap cardZoneMap;
 
     private:
