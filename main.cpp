@@ -32,7 +32,7 @@ int main() {
 
     cz.shuffle();
 
-    std::cout << cz.toJson().dump(4) << std::endl;
+    std::cout << cz.at(0).toJson().dump(4) << std::endl;
 
     return 0;
 }
