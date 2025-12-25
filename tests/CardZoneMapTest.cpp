@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <fstream>
 #include "../include/nlohmann/json.hpp"
 
 #include "../include/CardZoneMap.h"
@@ -14,7 +15,7 @@ TEST(CardZoneMapTest, AddAndGetZone) {
     CardZone hand(false);
     EXPECT_TRUE(zoneMap.addZone("hand", std::move(hand)));
 
-    CardZone* retrieved = zoneMap.getZone("hand");
+    CardZone *retrieved = zoneMap.getZone("hand");
     ASSERT_NE(retrieved, nullptr);
     EXPECT_EQ(retrieved->size(), 0);
 }
@@ -63,42 +64,9 @@ TEST(CardZoneMapTest, AddCardBottom) {
 
 // ---------- json stuff ------------
 TEST(CardZoneMapTest, InitFromJson_MultipleZones) {
-    auto j = R"(
-    {
-        "hand1": {
-            "hiddenGeneral": false,
-            "hiddenPlayer": true,
-            "cards": [
-                {
-                    "cardProperty": { "attack": 3 },
-                    "tags": ["melee"]
-                }
-            ]
-        },
-        "hand2": {
-            "hiddenGeneral": true,
-            "hiddenPlayer": false,
-            "cards": [
-                {
-                    "cardProperty": {
-                        "attack": 5,
-                        "health": 10,
-                        "rarity": "epic"
-                    },
-                    "tags": ["fire", "spell"]
-                },
-                {
-                    "cardProperty": {
-                        "attack": 19,
-                        "health": 1,
-                        "rarity": "common"
-                    },
-                    "tags": ["magic", "water"]
-                }
-            ]
-        }
-    }
-    )"_json;
+    std::ifstream f("../example/JSON/CardZoneMap/CardZoneMap_1.json");
+
+    json j = json::parse(f);
 
     CardZoneMap zoneMap;
     zoneMap.initFromJson(j);
@@ -111,53 +79,18 @@ TEST(CardZoneMapTest, InitFromJson_MultipleZones) {
 
     auto out = zoneMap.toJson();
 
-    EXPECT_FALSE(out["hand1"]["hiddenGeneral"].get<bool>());
-    EXPECT_TRUE(out["hand1"]["hiddenPlayer"].get<bool>());
+    EXPECT_FALSE(out["cardZones"]["hand1"]["hiddenGeneral"].get<bool>());
+    EXPECT_TRUE(out["cardZones"]["hand1"]["hiddenPlayer"].get<bool>());
 
-    EXPECT_TRUE(out["hand2"]["hiddenGeneral"].get<bool>());
-    EXPECT_FALSE(out["hand2"]["hiddenPlayer"].get<bool>());
+    EXPECT_TRUE(out["cardZones"]["hand2"]["hiddenGeneral"].get<bool>());
+    EXPECT_FALSE(out["cardZones"]["hand2"]["hiddenPlayer"].get<bool>());
 }
 
 TEST(CardZoneMapTest, ToJson_MultipleZones) {
-    auto j = R"(
-    {
-        "hand": {
-            "hiddenGeneral": false,
-            "hiddenPlayer": true,
-            "cards": [
-                {
-                    "cardProperty": {
-                        "attack": 5,
-                        "health": 10,
-                        "rarity": "epic"
-                    },
-                    "tags": ["fire", "spell"]
-                },
-                {
-                    "cardProperty": {
-                        "attack": 19,
-                        "health": 1,
-                        "rarity": "common"
-                    },
-                    "tags": ["magic", "water"]
-                },
-                {
-                    "cardProperty": {
-                        "attack": 25,
-                        "health": 15,
-                        "rarity": "rare"
-                    },
-                    "tags": ["air", "water"]
-                }
-            ]
-        },
-        "deck": {
-            "hiddenGeneral": true,
-            "hiddenPlayer": false,
-            "cards": []
-        }
-    }
-    )"_json;
+
+    std::ifstream f("../example/JSON/CardZoneMap/CardZoneMap_2.json");
+
+    json j = json::parse(f);
 
     CardZoneMap zoneMap;
     zoneMap.initFromJson(j);

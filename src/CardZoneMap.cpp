@@ -53,22 +53,25 @@ bool CardZoneMap::addCardBottom(const std::string& zoneName, Card&& card) {
 void CardZoneMap::initFromJson(const json& j) {
     zones.clear();
 
-    for (auto it = j.begin(); it != j.end(); ++it) {
-        const std::string& zoneName = it.key();
-        const json& zoneJson = it.value();
+    if (j.contains("cardZones") && j["cardZones"].is_object()) {
+        for (auto it = j["cardZones"].begin(); it != j["cardZones"].end(); ++it) {
+            const std::string& zoneName = it.key();
+            const json& zoneJson = it.value();
 
-        CardZone zone(false); //hidden will be set by init
-        zone.initFromJson(zoneJson);
+            CardZone zone(zoneJson);
 
-        zones.emplace(zoneName, std::move(zone));
+            zones.emplace(zoneName, std::move(zone));
+        }
     }
 }
 
 CardZoneMap::json CardZoneMap::toJson() const {
     json j = json::object();
 
+    j["cardZones"] = json::object();
+
     for (const auto& [zoneName, zone] : zones) {
-        j[zoneName] = zone.toJson();
+        j["cardZones"][zoneName] = zone.toJson();
     }
     return j;
 }

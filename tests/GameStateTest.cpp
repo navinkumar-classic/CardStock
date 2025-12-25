@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-
+#include <fstream>
 #include "../include/GameState.h"
 
 TEST(GameStateTest, addElements) {
@@ -62,14 +62,9 @@ TEST(GameStateTest, reAssignElements) {
 }
 
 TEST(GameStateTest, intitElementsFromJson) {
-    auto j = R"(
-    {
-        "int": 1,
-        "float": 1.101,
-        "bool": true,
-        "string": "string"
-    }
-    )"_json;
+    std::ifstream f("../example/JSON/GameState/GameState_1.json");
+
+    json j = json::parse(f);
 
     GameState gs;
     gs.initFromJson(j);
@@ -82,14 +77,9 @@ TEST(GameStateTest, intitElementsFromJson) {
 }
 
 TEST(GameStateTest, elementsToJson) {
-    auto j = R"(
-    {
-        "int": 1,
-        "float": 1.101,
-        "bool": true,
-        "string": "string"
-    }
-    )"_json;
+    std::ifstream f("../example/JSON/GameState/GameState_1.json");
+
+    json j = json::parse(f);
 
     GameState gs;
     gs.initFromJson(j);

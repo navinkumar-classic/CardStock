@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <fstream>
 #include "../include/Card.h"
 
 TEST(CardTest, addRemoveTags) {
@@ -12,19 +13,9 @@ TEST(CardTest, addRemoveTags) {
 }
 
 TEST(CardTest, initFromJson) {
-    auto j = R"(
-    {
-        "cardProperty": {
-            "attack": 5,
-            "health": 10,
-            "rarity": "epic"
-        },
-        "tags": [
-            "fire",
-            "spell"
-        ]
-    }
-    )"_json;
+    std::ifstream f("../example/JSON/Card/Card_1.json");
+
+    json j = json::parse(f);
 
     Card c(j);
 
@@ -37,19 +28,8 @@ TEST(CardTest, initFromJson) {
 }
 
 TEST(CardTest, toJson) {
-    auto j = R"(
-    {
-        "cardProperty": {
-            "attack": 5,
-            "health": 10,
-            "rarity": "epic"
-        },
-        "tags": [
-            "fire",
-            "spell"
-        ]
-    }
-    )"_json;
+    std::ifstream f("../example/JSON/Card/Card_2.json");
+    json j = json::parse(f);
 
     Card c(j);
 
