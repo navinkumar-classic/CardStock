@@ -16,11 +16,14 @@
 
 #pragma once
 #include "ActionHandler.h"
+#include "Card.h"
 #include "TurnManager.h"
 #include "Player.h"
+#include "PlayerList.h"
 
 using applyFunc = std::function<void(Player&, CardZoneMap&, GameState&)>;
 using transferFunc = std::function<void(Player&, Player&, GameState&)>;
+
 
 class Engine {
     public:
@@ -32,17 +35,7 @@ class Engine {
         [[nodiscard]] bool getIsRunning() const { return isRunning; }
         void setIsRunning(bool value) { isRunning = value; }
 
-        auto playersBegin() { return players.begin(); }
-        auto playersEnd() { return players.end(); }
-        auto& playersAt(size_t index) { return players.at(index); }
-        auto playersSize() const { return players.size(); }
-
-        void applyToAllPlayers(const applyFunc& func);
-        void applyToPlayers(const std::vector<size_t> &indList, const applyFunc &func);
-        void applyToAllPlayersExcept(const std::vector<size_t> &indList, const applyFunc &func);
-
-        void applyTransfer(size_t src, size_t tar, const transferFunc& func);
-
+        PlayerList players;
         ActionHandler actionHandler;
         TurnManager turnManager;
         CardZoneMap cardZoneMap;
@@ -53,9 +46,6 @@ class Engine {
         void update();
         void onExit();
 
-        void addPlayers(size_t numPlayers, const std::vector<json>& playersConfig);
-
+        void addPlayers(size_t numPlayers, const json &playersConfig);
         bool isRunning = true;
-
-        std::vector<Player> players;
 };

@@ -12,6 +12,7 @@ add_library(CardStockCore
         src/TurnManager.cpp
         src/Player.cpp
         src/ActionHandler.cpp
+        src/PlayerList.cpp
 )
 
 add_executable(CardStock
@@ -43,6 +44,7 @@ add_executable(CardStockTests
         tests/ActionHandlerTest.cpp
         tests/PlayerTest.cpp
         tests/EngineTest.cpp
+        tests/PlayerListTest.cpp
 )
 
 target_link_libraries(CardStockTests

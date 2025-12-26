@@ -1,0 +1,59 @@
+[
+    {
+        "id": 0,
+        "name": "navin",
+        "state": {
+            "int": 1,
+            "bool": true,
+            "string": "string"
+        },
+        "inHand": {
+            "cardZones": {
+                "hand2": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": [
+                        {
+                            "cardProperty": {
+                                "attack": 5,
+                                "health": 10,
+                                "rarity": "epic"
+                            },
+                            "tags": [
+                                "fire",
+                                "spell"
+                            ]
+                        },
+                        {
+                            "cardProperty": {
+                                "attack": 19,
+                                "health": 1,
+                                "rarity": "common"
+                            },
+                            "tags": [
+                                "magic",
+                                "water"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "id": 1,
+        "name": "vishal",
+        "inHand": {
+            "cardZones": {}
+        },
+        "state": {}
+    },
+    {
+        "id": 2,
+        "name": "sriram",
+        "inHand": {
+            "cardZones": {}
+        },
+        "state": {}
+    }
+]

@@ -32,6 +32,8 @@ Engine::Engine(const json& config) {
     if (config.contains("cardZoneMap") && config["cardZoneMap"].is_object()) {
         cardZoneMap.initFromJson(config["cardZoneMap"]);
     }
+
+    turnManager.init(players.size());
 }
 
 void Engine::run() {
@@ -47,62 +49,28 @@ void Engine::onInit() {
 }
 
 void Engine::update() {
-    std::cout << "Engine Updated!" << std::endl;
+    switch (turnManager.getPhase()) {
+        case TurnPhase::Start:
+            std::cout << "Turn Phase: Start" << std::endl;
+            turnManager.nextPhase();
+            break;
+        case TurnPhase::Main:
+            std::cout << "Turn Phase: Main" << std::endl;
+            turnManager.nextPhase();
+            break;
+        case TurnPhase::End:
+            std::cout << "Turn Phase: End" << std::endl;
+            turnManager.endTurn();
+            break;
+    }
 }
 
 void Engine::onExit() {
     std::cout << "Engine Exiting!" << std::endl;
 }
 
-void Engine::applyToAllPlayers(const applyFunc& func) {
-    for (auto& player: players) {
-        func(player, cardZoneMap, gameState);
-    }
-}
-
-void Engine::applyToPlayers(const std::vector<size_t>& indList, const applyFunc& func) {
-
-    for (auto ind : indList) {
-        if (ind < players.size()) {
-            func(players.at(ind), cardZoneMap, gameState);
-        }
-    }
-}
-
-void Engine::applyToAllPlayersExcept(const std::vector<size_t> &indList, const applyFunc& func) {
-    for (size_t i = 0; i < players.size(); ++i) {
-        bool notInList = true;
-
-        for (size_t idx : indList) {
-            if (i == idx) {
-                notInList = false;
-                break;
-            }
-        }
-
-        if (notInList) {
-            func(players.at(i), cardZoneMap, gameState);
-        }
-    }
-}
-
-void Engine::applyTransfer(size_t srcInd, size_t tarInd, const transferFunc& func) {
-    if (srcInd < players.size() && tarInd < players.size()) {
-        func(players.at(srcInd), players.at(tarInd), gameState);
-    }
-}
-
-
-
-void Engine::addPlayers(size_t numPlayers, const std::vector<json>& playersConfig) {
-
-    for (auto j: playersConfig) {
-        if (j.is_object()) {
-            if (j.contains("id") && j.contains("name") && j["id"].is_number_integer() && j["name"].is_string()) {
-                players.emplace_back(j);
-            }
-        }
-    }
+void Engine::addPlayers(size_t numPlayers, const json& playersConfig) {
+    players.initFromJson(playersConfig);
 
     if (numPlayers == players.size()) {
         return;
