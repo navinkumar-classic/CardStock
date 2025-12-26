@@ -19,6 +19,9 @@
 #include "TurnManager.h"
 #include "Player.h"
 
+using applyFunc = std::function<void(Player&, CardZoneMap&, GameState&)>;
+using transferFunc = std::function<void(Player&, Player&, GameState&)>;
+
 class Engine {
     public:
         Engine(const json& config);
@@ -34,9 +37,16 @@ class Engine {
         auto& playersAt(size_t index) { return players.at(index); }
         auto playersSize() const { return players.size(); }
 
+        void applyToAllPlayers(const applyFunc& func);
+        void applyToPlayers(const std::vector<size_t> &indList, const applyFunc &func);
+        void applyToAllPlayersExcept(const std::vector<size_t> &indList, const applyFunc &func);
+
+        void applyTransfer(size_t src, size_t tar, const transferFunc& func);
+
         ActionHandler actionHandler;
         TurnManager turnManager;
         CardZoneMap cardZoneMap;
+        GameState gameState;
 
     private:
         void onInit();

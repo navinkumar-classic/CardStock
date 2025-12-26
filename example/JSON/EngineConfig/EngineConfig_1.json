@@ -2,16 +2,114 @@
     "players": [
         {
             "id": 0,
-            "name": "navin"
+            "name": "navin",
+            "state": {
+                "int": 1,
+                "bool": true,
+                "string": "string"
+            },
+            "inHand": {
+                "cardZones": {
+                    "hand2": {
+                        "hiddenGeneral": true,
+                        "hiddenPlayer": false,
+                        "cards": [
+                            {
+                                "cardProperty": {
+                                    "attack": 5,
+                                    "health": 10,
+                                    "rarity": "epic"
+                                },
+                                "tags": [
+                                    "fire",
+                                    "spell"
+                                ]
+                            },
+                            {
+                                "cardProperty": {
+                                    "attack": 19,
+                                    "health": 1,
+                                    "rarity": "common"
+                                },
+                                "tags": [
+                                    "magic",
+                                    "water"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
         },
         {
             "id": 1,
-            "name": "vishal"
+            "name": "vishal",
+            "inHand": {
+                "cardZones": {}
+            },
+            "state": {}
         },
         {
             "id": 2,
-            "name": "sriram"
+            "name": "sriram",
+            "inHand": {
+                "cardZones": {}
+            },
+            "state": {}
         }
     ],
-    "numPlayers": 3
+    "numPlayers": 3,
+    "gameState": {
+        "int": 101,
+        "bool": true,
+        "string": "engine config"
+    },
+    "cardZoneMap": {
+        "cardZones": {
+            "deckOpen": {
+                "hiddenGeneral": false,
+                "hiddenPlayer": false,
+                "cards": [
+                    {
+                        "cardProperty": {
+                            "attack": 5,
+                            "health": 10,
+                            "rarity": "epic"
+                        },
+                        "tags": [
+                            "fire",
+                            "spell"
+                        ]
+                    },
+                    {
+                        "cardProperty": {
+                            "attack": 19,
+                            "health": 1,
+                            "rarity": "common"
+                        },
+                        "tags": [
+                            "magic",
+                            "water"
+                        ]
+                    },
+                    {
+                        "cardProperty": {
+                            "attack": 25,
+                            "health": 15,
+                            "rarity": "rare"
+                        },
+                        "tags": [
+                            "air",
+                            "water"
+                        ]
+                    }
+                ]
+            },
+            "deckClose": {
+                "hiddenGeneral": true,
+                "hiddenPlayer": true,
+                "cards": []
+            }
+        }
+    }
 }

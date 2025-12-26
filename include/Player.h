@@ -23,6 +23,7 @@
 class Player {
     public:
         Player(int id, const std::string &name);
+        Player(const json& j);
 
         int getId() const;
 
@@ -31,7 +32,10 @@ class Player {
         CardZoneMap zoneMap;
         GameState state;
 
+        void initFromJson(const json& j);
+        json toJson() const;
+
     private:
-        int playerId;
+        int playerId{};
         std::string name;
 };

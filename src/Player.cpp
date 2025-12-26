@@ -18,10 +18,40 @@
 Player::Player(int id, const std::string& name)
     : playerId(id), name(name) {}
 
+Player::Player(const json &j): playerId(-1), name("null")  {
+    initFromJson(j);
+}
+
 int Player::getId() const {
     return playerId;
 }
 
 const std::string& Player::getName() const {
     return name;
+}
+
+void Player::initFromJson(const json& j) {
+    if (j.contains("id") && j["id"].is_number_integer()) {
+        playerId = j["id"];
+    }
+    if (j.contains("name") && j["name"].is_string()) {
+        name = j["name"];
+    }
+    if (j.contains("state") && j.is_object()) {
+        state.initFromJson(j["state"]);
+    }
+    if (j.contains("inHand") && j["inHand"].is_object()) {
+        zoneMap.initFromJson(j["inHand"]);
+    }
+}
+
+json Player::toJson() const {
+    json j = json::object();
+
+    j["id"] = playerId;
+    j["name"] = name;
+    j["state"] = state.toJson();
+    j["inHand"] = zoneMap.toJson();
+
+    return j;
 }
