@@ -29,12 +29,13 @@ bool ActionHandler::removeAction(const std::string &name) {
     return actionConditionMap.erase(name);
 }
 
-std::vector<std::string> ActionHandler::getValidAction() {
-    std::vector<std::string> res;
+std::vector<std::pair<std::string, int>> ActionHandler::getValidAction() {
+    std::vector<std::pair<std::string, int>> res;
 
     for (const auto& [name, action] : actionConditionMap) {
-        if (action.first()) {
-            res.emplace_back(name);
+        auto condition = action.first();
+        if (condition.first) {
+            res.emplace_back(name, condition.second);
         }
     }
 

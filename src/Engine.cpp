@@ -67,6 +67,8 @@ void Engine::update() {
             turnManager.endTurn();
             break;
     }
+
+    eventManager.run();
 }
 
 void Engine::onExit() {

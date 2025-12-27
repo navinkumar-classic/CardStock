@@ -17,6 +17,7 @@
 #pragma once
 #include "ActionHandler.h"
 #include "Card.h"
+#include "EventManager.h"
 #include "TurnManager.h"
 #include "Player.h"
 #include "PlayerList.h"
@@ -38,6 +39,7 @@ class Engine {
         TurnManager turnManager;
         CardZoneMap cardZoneMap;
         GameState gameState;
+        EventManager eventManager;
 
     private:
         void onInit();

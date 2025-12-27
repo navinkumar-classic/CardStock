@@ -13,6 +13,7 @@ add_library(CardStockCore
         src/Player.cpp
         src/ActionHandler.cpp
         src/PlayerList.cpp
+        src/EventManager.cpp
 )
 
 add_executable(CardStock
@@ -45,6 +46,7 @@ add_executable(CardStockTests
         tests/PlayerTest.cpp
         tests/EngineTest.cpp
         tests/PlayerListTest.cpp
+        tests/EventManagerTest.cpp
 )
 
 target_link_libraries(CardStockTests

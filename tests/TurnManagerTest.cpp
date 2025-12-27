@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "../include/TurnManager.h"
 
-TEST(TurnManagerTest, BasicTurnFlow) {
+TEST(TurnManagerTest, basicTurnFlow) {
     TurnManager tm;
 
     tm.init(2);

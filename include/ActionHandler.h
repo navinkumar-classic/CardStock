@@ -18,7 +18,9 @@
 #include <map>
 #include <string>
 
-using conditionFunction = std::function<bool()>;
+#include "Player.h"
+
+using conditionFunction = std::function<std::pair<bool, int>()>;
 using actionFunction = std::function<bool()>;
 
 class ActionHandler {
@@ -29,7 +31,7 @@ class ActionHandler {
         bool addAction(const std::string& name, conditionFunction condition, actionFunction action);
         bool removeAction(const std::string& name);
 
-        std::vector<std::string> getValidAction();
+        std::vector<std::pair<std::string, int>> getValidAction();
 
         [[nodiscard]] bool execute(const std::string& action) const;
 
