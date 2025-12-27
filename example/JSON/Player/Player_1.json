@@ -13,6 +13,7 @@
                 "hiddenPlayer": true,
                 "cards": [
                     {
+                        "id": 1,
                         "cardProperty": {
                             "attack": 3
                         },
@@ -27,6 +28,7 @@
                 "hiddenPlayer": false,
                 "cards": [
                     {
+                        "id": 2,
                         "cardProperty": {
                             "attack": 5,
                             "health": 10,
@@ -38,6 +40,7 @@
                         ]
                     },
                     {
+                        "id": 3,
                         "cardProperty": {
                             "attack": 19,
                             "health": 1,

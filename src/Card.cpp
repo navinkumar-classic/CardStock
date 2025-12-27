@@ -18,7 +18,7 @@
 
 #include <iostream>
 
-Card::Card(const json &json) {
+Card::Card(const json &json): id(-1) {
     initFromJson(json);
 }
 
@@ -39,6 +39,7 @@ json Card::toJson() const{
 
     j["cardProperty"] = cardProperty.toJson();
     j["tags"] = cardTags;
+    j["id"] = id;
 
     return j;
 }
@@ -53,6 +54,13 @@ void Card::initFromJson(const json& j) {
         for (auto& tag : j["tags"].get<std::vector<std::string>>()) {
             addTag(tag);
         }
+    }
+
+    if (j.contains("id") && j["id"].is_number_integer()) {
+        id = j["id"];
+    }
+    else {
+        throw std::invalid_argument("Invalid json provided - card id missing");
     }
 }
 

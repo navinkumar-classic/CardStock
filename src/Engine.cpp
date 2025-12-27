@@ -45,7 +45,9 @@ void Engine::run() {
 }
 
 void Engine::onInit() {
-    std::cout << "Engine Initialized!" << std::endl;
+    for (auto& initFunction: initFunctions) {
+        initFunction(players, cardZoneMap, gameState);
+    }
 }
 
 void Engine::update() {
@@ -54,10 +56,12 @@ void Engine::update() {
             std::cout << "Turn Phase: Start" << std::endl;
             turnManager.nextPhase();
             break;
+
         case TurnPhase::Main:
             std::cout << "Turn Phase: Main" << std::endl;
             turnManager.nextPhase();
             break;
+
         case TurnPhase::End:
             std::cout << "Turn Phase: End" << std::endl;
             turnManager.endTurn();
@@ -66,7 +70,9 @@ void Engine::update() {
 }
 
 void Engine::onExit() {
-    std::cout << "Engine Exiting!" << std::endl;
+    for (auto& exitFunction: initFunctions) {
+        exitFunction(players, cardZoneMap, gameState);
+    }
 }
 
 void Engine::addPlayers(size_t numPlayers, const json& playersConfig) {

@@ -18,12 +18,15 @@
 #include <map>
 #include <string>
 
+using conditionFunction = std::function<bool()>;
+using actionFunction = std::function<bool()>;
+
 class ActionHandler {
     public:
         ActionHandler() = default;
         ~ActionHandler() = default;
 
-        bool addAction(const std::string& name, std::function<bool()> condition, std::function<bool()> action);
+        bool addAction(const std::string& name, conditionFunction condition, actionFunction action);
         bool removeAction(const std::string& name);
 
         std::vector<std::string> getValidAction();
@@ -31,6 +34,6 @@ class ActionHandler {
         [[nodiscard]] bool execute(const std::string& action) const;
 
     private:
-        using actionPair = std::pair<std::function<bool()>, std::function<bool()>>;
+        using actionPair = std::pair<conditionFunction, actionFunction>;
         std::map<std::string, actionPair> actionConditionMap;
 };

@@ -1,6 +1,7 @@
 {
     "cards": [
         {
+            "id": 1,
             "cardProperty": {
                 "attack": 5,
                 "health": 10,
@@ -12,6 +13,7 @@
             ]
         },
         {
+            "id": 2,
             "cardProperty": {
                 "attack": 19,
                 "health": 1,
@@ -23,6 +25,7 @@
             ]
         },
         {
+            "id": 3,
             "cardProperty": {
                 "attack": 25,
                 "health": 15,

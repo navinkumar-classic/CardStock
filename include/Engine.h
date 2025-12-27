@@ -21,9 +21,7 @@
 #include "Player.h"
 #include "PlayerList.h"
 
-using applyFunc = std::function<void(Player&, CardZoneMap&, GameState&)>;
-using transferFunc = std::function<void(Player&, Player&, GameState&)>;
-
+using initExitFunction = std::function<void(PlayerList&, CardZoneMap&, GameState&)>;
 
 class Engine {
     public:
@@ -48,4 +46,7 @@ class Engine {
 
         void addPlayers(size_t numPlayers, const json &playersConfig);
         bool isRunning = true;
+
+        std::vector<initExitFunction> initFunctions;
+        std::vector<initExitFunction> exitFunctions;
 };

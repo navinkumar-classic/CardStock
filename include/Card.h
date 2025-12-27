@@ -44,4 +44,5 @@ class Card {
 
     private:
         std::set<std::string> cardTags;
+        int id;
 };

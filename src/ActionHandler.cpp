@@ -16,7 +16,7 @@
 
 #include "../include/ActionHandler.h"
 
-bool ActionHandler::addAction(const std::string &name, std::function<bool()> condition, std::function<bool()> action) {
+bool ActionHandler::addAction(const std::string &name, conditionFunction condition, actionFunction action) {
     if (actionConditionMap.contains(name)) {
         return false;
     }
