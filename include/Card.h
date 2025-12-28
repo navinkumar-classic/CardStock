@@ -42,6 +42,8 @@ class Card {
         void initFromJson(const json& json);
         json toJson() const;
 
+        int getId() const {return id;}
+
     private:
         std::set<std::string> cardTags;
         int id;

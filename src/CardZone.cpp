@@ -46,7 +46,7 @@ std::optional<Card> CardZone::popFront() {
         return std::nullopt;
     }
 
-    Card c = std::move(cardQueue.front());
+    Card c = cardQueue.front();
     cardQueue.pop_front();
 
     return c;
@@ -56,10 +56,23 @@ std::optional<Card> CardZone::popBack() {
     if (cardQueue.empty()) {
         return std::nullopt;
     }
-    Card c = std::move(cardQueue.back());
+
+    Card c = cardQueue.back();
     cardQueue.pop_back();
 
     return c;
+}
+
+std::optional<Card> CardZone::popById(int id) {
+    for (auto it = cardQueue.begin(); it != cardQueue.end(); ++it) {
+        if (it->getId() == id) {
+            Card c = *it;
+            cardQueue.erase(it);
+            return c;
+        }
+    }
+
+    return std::nullopt;
 }
 
 const Card& CardZone::peekFront() const {

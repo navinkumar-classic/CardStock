@@ -36,7 +36,6 @@ class Engine {
 
         PlayerList players;
         ActionHandler actionHandler;
-        TurnManager turnManager;
         CardZoneMap cardZoneMap;
         GameState gameState;
         EventManager eventManager;
@@ -51,4 +50,8 @@ class Engine {
 
         std::vector<initExitFunction> initFunctions;
         std::vector<initExitFunction> exitFunctions;
+
+        validActions tempValidActions = {};
+        json tempValidActionsJson = {};
+        std::pair<std::string, int> tempActionExecute = {};
 };

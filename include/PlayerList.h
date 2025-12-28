@@ -3,12 +3,16 @@
 #pragma once
 #include <vector>
 #include "Player.h"
+#include "TurnManager.h"
 
 using applyFunc = std::function<void(Player&, CardZoneMap&, GameState&)>;
 using transferFunc = std::function<void(Player&, Player&, GameState&)>;
 
 class PlayerList {
     public:
+        PlayerList();
+        PlayerList(const json& json);
+
         auto begin() { return players.begin(); }
         auto end() { return players.end(); }
         auto& at(size_t index) { return players.at(index); }
@@ -21,6 +25,8 @@ class PlayerList {
 
         void initFromJson(const json& json);
         [[nodiscard]] json toJson() const;
+
+        TurnManager turnManager;
 
     private:
         std::vector<Player> players;

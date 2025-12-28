@@ -29,11 +29,11 @@ bool ActionHandler::removeAction(const std::string &name) {
     return actionConditionMap.erase(name);
 }
 
-std::vector<std::pair<std::string, int>> ActionHandler::getValidAction() {
-    std::vector<std::pair<std::string, int>> res;
+validActions ActionHandler::getValidAction(Player& player, CardZoneMap& cardZoneMap, GameState& gameState) {
+    validActions res;
 
     for (const auto& [name, action] : actionConditionMap) {
-        auto condition = action.first();
+        auto condition = action.first(player, cardZoneMap, gameState);
         if (condition.first) {
             res.emplace_back(name, condition.second);
         }
@@ -42,9 +42,9 @@ std::vector<std::pair<std::string, int>> ActionHandler::getValidAction() {
     return res;
 }
 
-bool ActionHandler::execute(const std::string &action) const {
+bool ActionHandler::execute(const std::string &action, PlayerList& playerList, CardZoneMap& cardZoneMap, GameState& gameState, int cardId) const {
     if (actionConditionMap.contains(action)) {
-        return actionConditionMap.at(action).second();
+        return actionConditionMap.at(action).second(playerList, cardZoneMap, gameState, cardId);
     }
     return false;
 }

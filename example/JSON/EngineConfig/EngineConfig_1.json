@@ -8,7 +8,7 @@
                 "bool": true,
                 "string": "string"
             },
-            "inHand": {
+            "cardZoneMap" : {
                 "cardZones": {
                     "hand2": {
                         "hiddenGeneral": true,
@@ -46,7 +46,7 @@
         {
             "id": 1,
             "name": "vishal",
-            "inHand": {
+            "cardZoneMap": {
                 "cardZones": {}
             },
             "state": {}
@@ -54,7 +54,7 @@
         {
             "id": 2,
             "name": "sriram",
-            "inHand": {
+            "cardZoneMap": {
                 "cardZones": {}
             },
             "state": {}

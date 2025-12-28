@@ -32,8 +32,6 @@ Engine::Engine(const json& config) {
     if (config.contains("cardZoneMap") && config["cardZoneMap"].is_object()) {
         cardZoneMap.initFromJson(config["cardZoneMap"]);
     }
-
-    turnManager.init(players.size());
 }
 
 void Engine::run() {
@@ -51,21 +49,39 @@ void Engine::onInit() {
 }
 
 void Engine::update() {
-    switch (turnManager.getPhase()) {
-        case TurnPhase::Start:
-            std::cout << "Turn Phase: Start" << std::endl;
-            turnManager.nextPhase();
-            break;
 
-        case TurnPhase::Main:
-            std::cout << "Turn Phase: Main" << std::endl;
-            turnManager.nextPhase();
-            break;
+    switch (players.turnManager.getPhase()) {
+        case TurnPhase::Start: {
+            tempValidActionsJson = json::object();
 
-        case TurnPhase::End:
-            std::cout << "Turn Phase: End" << std::endl;
-            turnManager.endTurn();
+            tempValidActionsJson["playerId"] = players.at(players.turnManager.getCurrentPlayerIndex()).getId();
+            tempValidActionsJson["validActions"] = json::object();
+
+            tempValidActions = actionHandler.getValidAction(players.at(players.turnManager.getCurrentPlayerIndex()), cardZoneMap, gameState);
+
+            for (const auto& [name, idL] : tempValidActions) {
+                tempValidActionsJson["validActions"][name] = idL;
+            }
+
+            players.turnManager.nextPhase();
             break;
+        }
+        case TurnPhase::Main: {
+            std::cout << tempValidActionsJson.dump(4) << std::endl;
+
+            std::cout << "Enter action: ";
+            std::cin >> tempActionExecute.first;
+            std::cout << "Enter id: ";
+            std::cin >> tempActionExecute.second;
+            players.turnManager.nextPhase();
+
+            break;
+        }
+        case TurnPhase::End: {
+            actionHandler.execute(tempActionExecute.first, players, cardZoneMap, gameState, tempActionExecute.second);
+            players.turnManager.endTurn();
+            break;
+        }
     }
 
     eventManager.run();

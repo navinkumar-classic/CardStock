@@ -40,8 +40,8 @@ void Player::initFromJson(const json& j) {
     if (j.contains("state") && j.is_object()) {
         state.initFromJson(j["state"]);
     }
-    if (j.contains("inHand") && j["inHand"].is_object()) {
-        zoneMap.initFromJson(j["inHand"]);
+    if (j.contains("cardZoneMap") && j["cardZoneMap"].is_object()) {
+        zoneMap.initFromJson(j["cardZoneMap"]);
     }
 }
 
@@ -51,7 +51,7 @@ json Player::toJson() const {
     j["id"] = playerId;
     j["name"] = name;
     j["state"] = state.toJson();
-    j["inHand"] = zoneMap.toJson();
+    j["cardZoneMap"] = zoneMap.toJson();
 
     return j;
 }

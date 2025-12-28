@@ -43,6 +43,7 @@ class CardZone {
 
         std::optional<Card> popFront();
         std::optional<Card> popBack();
+        std::optional<Card> popById(int id);
 
         const Card& peekFront() const;
         const Card& peekBack() const;

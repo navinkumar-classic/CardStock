@@ -56,6 +56,10 @@ void TurnManager::nextPhase() {
     }
 }
 
+void TurnManager::goToStartPhase() {
+    currentPhase_ = TurnPhase::Start;
+}
+
 void TurnManager::endTurn() {
     advanceToNextPlayer();
     currentPhase_ = TurnPhase::Start;

@@ -39,7 +39,7 @@ class GameState{
             gameStateMap[key] = value;
         }
 
-        template <varTypeName T> std::optional<T> get(const std::string& key) {
+        template <varTypeName T> std::optional<T> get(const std::string& key) const{
             const auto it = gameStateMap.find(key);
             if (it != gameStateMap.end()) {
                 if (auto val = std::get_if<T>(&it->second)) {
@@ -49,7 +49,7 @@ class GameState{
             return std::nullopt;
         }
 
-        bool has(const std::string& key) {
+        bool has(const std::string& key) const{
             const auto it = gameStateMap.find(key);
             if (it != gameStateMap.end()){
                 return true;

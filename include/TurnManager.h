@@ -41,6 +41,7 @@ public:
     [[nodiscard]] bool isPlayersTurn(size_t playerIndex) const;
 
     void nextPhase();
+    void goToStartPhase();
     void endTurn();
 
 private:

@@ -18,7 +18,7 @@ TEST(PlayerTest, initFromJson) {
     EXPECT_EQ(j["id"], p.getId());
     EXPECT_EQ(j["name"], p.getName());
     EXPECT_EQ(j["state"], p.state.toJson());
-    EXPECT_EQ(j["inHand"], p.zoneMap.toJson());
+    EXPECT_EQ(j["cardZoneMap"], p.zoneMap.toJson());
 }
 
 TEST(PlayerTest, toJson) {

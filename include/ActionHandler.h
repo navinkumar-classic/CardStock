@@ -19,9 +19,11 @@
 #include <string>
 
 #include "Player.h"
+#include "PlayerList.h"
 
-using conditionFunction = std::function<std::pair<bool, int>()>;
-using actionFunction = std::function<bool()>;
+using conditionFunction = std::function<std::pair<bool, std::vector<int>>(Player&, CardZoneMap&, GameState&)>;
+using actionFunction = std::function<bool(PlayerList&, CardZoneMap&, GameState&, int cardId)>;
+using validActions = std::vector<std::pair<std::string, std::vector<int>>>;
 
 class ActionHandler {
     public:
@@ -31,9 +33,9 @@ class ActionHandler {
         bool addAction(const std::string& name, conditionFunction condition, actionFunction action);
         bool removeAction(const std::string& name);
 
-        std::vector<std::pair<std::string, int>> getValidAction();
+        validActions getValidAction(Player& player, CardZoneMap& cardZoneMap, GameState& gameState);
 
-        [[nodiscard]] bool execute(const std::string& action) const;
+        bool execute(const std::string& action, PlayerList& playerList, CardZoneMap& cardZoneMap, GameState& gameState, int cardId) const;
 
     private:
         using actionPair = std::pair<conditionFunction, actionFunction>;

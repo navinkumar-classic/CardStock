@@ -6,7 +6,7 @@
         "bool": true,
         "string": "string"
     },
-    "inHand": {
+    "cardZoneMap": {
         "cardZones": {
             "hand1": {
                 "hiddenGeneral": false,

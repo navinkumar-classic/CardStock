@@ -1,0 +1,110 @@
+{
+    "players": [
+        {
+            "id": 0,
+            "name": "navin",
+            "state": {
+                "int": 1,
+                "bool": true,
+                "string": "string"
+            },
+            "cardZoneMap" : {
+                "cardZones": {
+                    "hand": {
+                        "hiddenGeneral": true,
+                        "hiddenPlayer": false,
+                        "cards": [
+                            {
+                                "id": 1,
+                                "cardProperty": {
+                                    "color": "yellow",
+                                    "number": 5
+                                },
+                                "tags": []
+                            },
+                            {
+                                "id": 2,
+                                "cardProperty": {
+                                    "color": "red",
+                                    "number": 7
+                                },
+                                "tags": []
+                            },
+                            {
+                                "id": 3,
+                                "cardProperty": {
+                                    "color": "green",
+                                    "number": 9
+                                },
+                                "tags": []
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": 1,
+            "name": "vishal",
+            "cardZoneMap": {
+                "cardZones": {
+                    "hand": {
+                        "hiddenGeneral": false,
+                        "hiddenPlayer": true,
+                        "cards": [
+                            {
+                                "id": 6,
+                                "cardProperty": {
+                                    "color": "yellow",
+                                    "number": 1
+                                },
+                                "tags": []
+                            },
+                            {
+                                "id": 7,
+                                "cardProperty": {
+                                    "color": "red",
+                                    "number": 5
+                                },
+                                "tags": []
+                            }
+                        ]
+                    }
+                }
+            },
+            "state": {}
+        }
+    ],
+    "numPlayers": 2,
+    "gameState": {
+        "int": 101,
+        "bool": true,
+        "string": "engine config"
+    },
+    "cardZoneMap": {
+        "cardZones": {
+            "deckOpen": {
+                "hiddenGeneral": false,
+                "hiddenPlayer": false,
+                "cards": [
+                    {
+                        "id": 4,
+                        "cardProperty": {
+                            "color": "yellow",
+                            "number": 7
+                        },
+                        "tags": []
+                    },
+                    {
+                        "id": 5,
+                        "cardProperty": {
+                            "color": "green",
+                            "number": 7
+                        },
+                        "tags": []
+                    }
+                ]
+            }
+        }
+    }
+}

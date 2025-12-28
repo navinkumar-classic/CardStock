@@ -1,6 +1,14 @@
 
 #include "../include/PlayerList.h"
 
+PlayerList::PlayerList(){
+    turnManager.init(0);
+}
+
+PlayerList::PlayerList(const json& json){
+    initFromJson(json);
+}
+
 void PlayerList::applyToAllPlayers(const applyFunc& func, CardZoneMap& cardZoneMap, GameState& gameState) {
     for (auto& player: players) {
         func(player, cardZoneMap, gameState);
@@ -47,6 +55,8 @@ void PlayerList::initFromJson(const json& playersConfig) {
             }
         }
     }
+
+    turnManager.init(players.size());
 }
 
 json PlayerList::toJson() const {
