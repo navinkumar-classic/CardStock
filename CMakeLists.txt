@@ -49,6 +49,8 @@ add_executable(CardStockTests
         tests/EngineTest.cpp
         tests/PlayerListTest.cpp
         tests/EventManagerTest.cpp
+        tests/ActionTest.cpp
+        tests/EventTest.cpp
 )
 
 target_link_libraries(CardStockTests

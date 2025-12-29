@@ -1,0 +1,143 @@
+[
+    {
+        "id": 0,
+        "name": "navin",
+        "state": {
+            "int": 1,
+            "bool": true,
+            "string": "string"
+        },
+        "cardZoneMap": {
+            "cardZones": {
+                "hand2": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": [
+                        {
+                            "id": 3,
+                            "cardProperty": {
+                                "attack": 19,
+                                "health": 1,
+                                "rarity": "common"
+                            },
+                            "tags": [
+                                "magic",
+                                "water"
+                            ]
+                        }
+                    ]
+                },
+                "hand3": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": []
+                },
+                "hand4": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": []
+                }
+            }
+        }
+    },
+    {
+        "id": 1,
+        "name": "vishal",
+        "cardZoneMap": {
+            "cardZones": {
+                "hand2": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": [
+                        {
+                            "id": 4,
+                            "cardProperty": {
+                                "attack": 5,
+                                "health": 10,
+                                "rarity": "epic"
+                            },
+                            "tags": [
+                                "fire",
+                                "spell"
+                            ]
+                        }
+                    ]
+                },
+                "hand3": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": [
+                        {
+                            "id": 7,
+                            "cardProperty": {
+                                "attack": 5,
+                                "health": 10,
+                                "rarity": "epic"
+                            },
+                            "tags": [
+                                "fire",
+                                "spell"
+                            ]
+                        }
+                    ]
+                },
+                "hand4": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": []
+                }
+            }
+        },
+        "state": {}
+    },
+    {
+        "id": 2,
+        "name": "sriram",
+        "cardZoneMap": {
+            "cardZones": {
+                "hand2": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": [
+                        {
+                            "id": 5,
+                            "cardProperty": {
+                                "attack": 5,
+                                "health": 10,
+                                "rarity": "epic"
+                            },
+                            "tags": [
+                                "fire",
+                                "spell"
+                            ]
+                        }
+                    ]
+                },
+                "hand3": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": [
+                        {
+                            "id": 6,
+                            "cardProperty": {
+                                "attack": 5,
+                                "health": 10,
+                                "rarity": "epic"
+                            },
+                            "tags": [
+                                "fire",
+                                "spell"
+                            ]
+                        }
+                    ]
+                },
+                "hand4": {
+                    "hiddenGeneral": true,
+                    "hiddenPlayer": false,
+                    "cards": []
+                }
+            }
+        },
+        "state": {}
+    }
+]

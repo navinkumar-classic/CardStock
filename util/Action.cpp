@@ -23,7 +23,7 @@ void Action::playCard(Player &player, CardZoneMap &cardZoneMap, const std::strin
     cardZoneMap.getZone(deckName)->pushFront(std::move(temp));
 }
 
-void Action::goToStartPhase(PlayerList &playerList) {
+void Action::goToStartPhase(PlayerList& playerList) {
     playerList.turnManager.goToStartPhase();
 }
 

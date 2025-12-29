@@ -7,7 +7,7 @@
 
 namespace Action {
 
-    template <varTypeName T> std::pair<bool, std::vector<int>> checkPlayerState_EQ(Player& player, const std::string& stateName, T value) {
+    template <varTypeName T> std::pair<bool, std::vector<int>> checkPlayerState_NEQ(Player& player, const std::string& stateName, T value) {
         if (player.state.has(stateName)) {
             if (player.state.get<T>(stateName).value() == value) {
                 return std::make_pair<bool, std::vector<int>>(false, {-1});
@@ -40,10 +40,10 @@ namespace Action {
 
 
     void drawCardFromDeck(Player& player, CardZoneMap& cardZoneMap, const std::string& handName, const std::string& deckName, int numCards);
-    void playCard(Player& player, CardZoneMap& cardZoneMap, const std::string& handName, const std::string &deckName, int cardIndex);
+    void playCard(Player& player, CardZoneMap& cardZoneMap, const std::string& handName, const std::string& deckName, int cardIndex);
     void goToStartPhase(PlayerList& playerList);
 
-    template <varTypeName T> void setPlayerState(Player player, const std::string& stateName, T value) {
+    template <varTypeName T> void setPlayerState(Player& player, const std::string& stateName, T value) {
         player.state.set<T>(stateName, value);
     }
 

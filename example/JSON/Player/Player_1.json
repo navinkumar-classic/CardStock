@@ -52,6 +52,11 @@
                         ]
                     }
                 ]
+            },
+            "hand3": {
+                "hiddenGeneral": true,
+                "hiddenPlayer": false,
+                "cards": []
             }
         }
     }
