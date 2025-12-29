@@ -61,11 +61,13 @@ void TurnManager::goToStartPhase() {
 }
 
 void TurnManager::endTurn() {
-    advanceToNextPlayer();
-    currentPhase_ = TurnPhase::Start;
+    if (currentPhase_ == TurnPhase::End) {
+        advanceToNextPlayer(1);
+        currentPhase_ = TurnPhase::Start;
+    }
 }
 
-void TurnManager::advanceToNextPlayer() {
-    currentPlayerIndex_ = (currentPlayerIndex_ + 1) % playerCount_;
+void TurnManager::advanceToNextPlayer(int delta) {
+    currentPlayerIndex_ = (currentPlayerIndex_ + delta) % playerCount_;
     turnNumber_++;
 }

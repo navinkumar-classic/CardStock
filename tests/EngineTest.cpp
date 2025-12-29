@@ -7,6 +7,7 @@ TEST(EngineTest, checkGameStateConfig) {
     json j = json::parse(f);
 
     Engine game(j);
+    j["gameState"]["isRunning"] = true;
 
     EXPECT_EQ(j["gameState"], game.gameState.toJson());
 }

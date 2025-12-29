@@ -50,5 +50,5 @@ private:
     TurnPhase currentPhase_;
     size_t playerCount_;
 
-    void advanceToNextPlayer();
+    void advanceToNextPlayer(int delta);
 };

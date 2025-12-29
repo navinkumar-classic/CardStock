@@ -18,8 +18,6 @@
 #include "ActionHandler.h"
 #include "Card.h"
 #include "EventManager.h"
-#include "TurnManager.h"
-#include "Player.h"
 #include "PlayerList.h"
 
 using initExitFunction = std::function<void(PlayerList&, CardZoneMap&, GameState&)>;
@@ -30,9 +28,6 @@ class Engine {
         ~Engine() = default;
 
         void run();
-
-        [[nodiscard]] bool getIsRunning() const { return isRunning; }
-        void setIsRunning(bool value) { isRunning = value; }
 
         PlayerList players;
         ActionHandler actionHandler;
@@ -46,7 +41,6 @@ class Engine {
         void onExit();
 
         void addPlayers(size_t numPlayers, const json &playersConfig);
-        bool isRunning = true;
 
         std::vector<initExitFunction> initFunctions;
         std::vector<initExitFunction> exitFunctions;

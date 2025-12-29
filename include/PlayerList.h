@@ -13,9 +13,9 @@ class PlayerList {
         PlayerList();
         PlayerList(const json& json);
 
-        auto begin() { return players.begin(); }
-        auto end() { return players.end(); }
-        auto& at(size_t index) { return players.at(index); }
+        [[nodiscard]] auto begin() const { return players.begin(); }
+        [[nodiscard]] auto end() const { return players.end(); }
+        [[nodiscard]] auto& at(size_t index)  { return players.at(index); }
         [[nodiscard]] auto size() const { return players.size(); }
 
         void applyToAllPlayers(const applyFunc& func, CardZoneMap& cardZoneMap, GameState& gameState);
@@ -27,6 +27,8 @@ class PlayerList {
         [[nodiscard]] json toJson() const;
 
         TurnManager turnManager;
+
+        [[nodiscard]] auto& getCurrentPlayer() { return players.at(turnManager.getCurrentPlayerIndex()); }
 
     private:
         std::vector<Player> players;

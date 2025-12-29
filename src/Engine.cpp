@@ -32,11 +32,13 @@ Engine::Engine(const json& config) {
     if (config.contains("cardZoneMap") && config["cardZoneMap"].is_object()) {
         cardZoneMap.initFromJson(config["cardZoneMap"]);
     }
+
+    gameState.set<bool>("isRunning", true);
 }
 
 void Engine::run() {
     onInit();
-    while (getIsRunning()) {
+    while (gameState.get<bool>("isRunning").value()) {
         update();
     }
     onExit();
@@ -84,7 +86,7 @@ void Engine::update() {
         }
     }
 
-    eventManager.run();
+    eventManager.run(players, cardZoneMap, gameState);
 }
 
 void Engine::onExit() {
