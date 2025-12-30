@@ -9,6 +9,4 @@ namespace Event {
     bool anyPlayerHasEmptyDeck(const PlayerList& players, const std::string& zoneName);
     bool allPlayersHaveEmptyDeck(const PlayerList& players, const std::string& zoneName);
 
-    void gameOver(GameState& gameState);
-
 }

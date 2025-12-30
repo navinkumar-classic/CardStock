@@ -20,7 +20,3 @@ bool Event::allPlayersHaveEmptyDeck(const PlayerList &players, const std::string
     }
     return true;
 }
-
-void Event::gameOver(GameState& gameState) {
-    gameState.set<bool>("isRunning", false);
-}

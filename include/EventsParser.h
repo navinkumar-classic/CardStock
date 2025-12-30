@@ -18,6 +18,9 @@ class EventsParser {
         void parseEvent(EventManager& eventManager, const json& eventJson);
 
     private:
+        void initEvent();
+        void initEffect();
+
         std::map<std::string, EventRegister> eventRegisterMap;
         std::map<std::string, EffectRegister> effectRegisterMap;
 };

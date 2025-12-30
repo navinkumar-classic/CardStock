@@ -1,20 +1,22 @@
 #include "../include/ActionsParser.h"
 
 #include "../util/Action.h"
+#include "../util/Condition.h"
 
-void ActionsParser::init() {
+void ActionsParser::initCondition() {
+
     conditionRegisterMap["toggle_player_state_if_equal_and_fail"] = [](Player &player, CardZoneMap &cardZoneMap, GameState &gameState, const json &json) {
-                if (!json.contains("state") || !json.contains("value") || !json["state"].is_string() || !json["value"].is_boolean()) {
-                    throw std::invalid_argument("Incomplete json for toggle_player_state_if_equal_and_fail condition");
-                }
-                return Action::togglePlayerStateIfEqualAndFail(player, json["state"], json["value"].get<bool>());
-            };
+        if (!json.contains("state") || !json.contains("value") || !json["state"].is_string() || !json["value"].is_boolean()) {
+            throw std::invalid_argument("Incomplete json for toggle_player_state_if_equal_and_fail condition");
+        }
+        return Condition::togglePlayerStateIfEqualAndFail(player, json["state"], json["value"].get<bool>());
+    };
 
     conditionRegisterMap["toggle_player_state_if_equal_and_pass"] = [](Player &player, CardZoneMap &cardZoneMap, GameState &gameState, const json &json) {
         if (!json.contains("state") || !json.contains("value") || !json["state"].is_string() || !json["value"].is_boolean()) {
             throw std::invalid_argument("Incomplete json for toggle_player_state_if_equal_and_pass condition");
             }
-        return Action::togglePlayerStateIfEqualAndPass(player, json["state"], json["value"].get<bool>());
+        return Condition::togglePlayerStateIfEqualAndPass(player, json["state"], json["value"].get<bool>());
     };
 
     conditionRegisterMap["find_hand_cards_matching_card_property"] = [](Player &player, CardZoneMap &cardZoneMap, GameState &gameState, const json &json) {
@@ -27,16 +29,16 @@ void ActionsParser::init() {
         const Card& card = (json["card_location"] == "top") ? cardZoneMap.getZone(json["deck_name"])->peekFront(): cardZoneMap.getZone(json["deck_name"])->peekBack();
 
         if (json["state_type"] == "string") {
-            return Action::findHandCardsMatchingCardProperty<std::string>(player, json["hand_name"], card, json["state_name"]);
+            return Condition::findHandCardsMatchingCardProperty<std::string>(player, json["hand_name"], card, json["state_name"]);
         }
         if (json["state_type"] == "int") {
-            return Action::findHandCardsMatchingCardProperty<int>(player, json["hand_name"], card, json["state_name"]);
+            return Condition::findHandCardsMatchingCardProperty<int>(player, json["hand_name"], card, json["state_name"]);
         }
         if (json["state_type"] == "float") {
-            return Action::findHandCardsMatchingCardProperty<float>(player, json["hand_name"], card, json["state_name"]);
+            return Condition::findHandCardsMatchingCardProperty<float>(player, json["hand_name"], card, json["state_name"]);
         }
         if (json["state_type"] == "bool") {
-            return Action::findHandCardsMatchingCardProperty<bool>(player, json["hand_name"], card, json["state_name"]);
+            return Condition::findHandCardsMatchingCardProperty<bool>(player, json["hand_name"], card, json["state_name"]);
         }
 
         throw std::invalid_argument("Unsupported state_type in find_hand_cards_matching_card_property condition");
@@ -53,8 +55,12 @@ void ActionsParser::init() {
             res.emplace_back(condRes.first, condRes.second);
         }
 
-        return Action::mergeResultsOr(res);
+        return Condition::mergeResultsOr(res);
     };
+
+}
+
+void ActionsParser::initAction() {
 
     actionRegisterMap["go_to_start_phase"] = [](PlayerList &playerList, CardZoneMap &cardZoneMap, GameState &gameState,
                                                 int cardId, const json &json) {
@@ -111,6 +117,12 @@ void ActionsParser::init() {
         }
         return true;
     };
+
+}
+
+void ActionsParser::init() {
+    initCondition();
+    initAction();
 }
 
 void ActionsParser::parseAction(ActionHandler &actionHandler, const json &eventJson) {

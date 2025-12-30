@@ -17,6 +17,9 @@ class ActionsParser {
         void parseAction(ActionHandler& actionHandler, const json& eventJson);
 
     private:
+        void initCondition();
+        void initAction();
+
         std::map<std::string, conditionRegister> conditionRegisterMap;
         std::map<std::string, actionRegister> actionRegisterMap;
 

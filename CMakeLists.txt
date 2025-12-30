@@ -18,6 +18,8 @@ add_library(CardStockCore
         util/Action.cpp
         src/EventsParser.cpp
         src/ActionsParser.cpp
+        util/Effect.cpp
+        util/Condition.cpp
 )
 
 add_executable(CardStock
@@ -53,6 +55,8 @@ add_executable(CardStockTests
         tests/EventManagerTest.cpp
         tests/ActionTest.cpp
         tests/EventTest.cpp
+        tests/ConditionTest.cpp
+        tests/EffectTest.cpp
 )
 
 target_link_libraries(CardStockTests

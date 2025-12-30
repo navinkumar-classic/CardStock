@@ -34,12 +34,3 @@ TEST(EventTest, checkAllPlayerHasEmptyDeck) {
     EXPECT_FALSE(Event::allPlayersHaveEmptyDeck(p, "hand3"));
     EXPECT_TRUE(Event::allPlayersHaveEmptyDeck(p, "hand4"));
 }
-
-TEST(EventTest, checkGameOver) {
-    GameState gs;
-    gs.set<bool>("isRunning", true);
-
-    EXPECT_TRUE(gs.get<bool>("isRunning").value());
-    Event::gameOver(gs);
-    EXPECT_FALSE(gs.get<bool>("isRunning").value());
-}
