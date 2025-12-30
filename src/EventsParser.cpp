@@ -3,11 +3,10 @@
 
 void EventsParser::init() {
     eventRegisterMap["any_player_has_empty_deck"] = [](PlayerList& playerList, CardZoneMap&, GameState&, const json& json) {
-        if (json.contains("hand_zone_name") && json["hand_zone_name"].is_string()) {
-            return Event::anyPlayerHasEmptyDeck(playerList, json["hand_zone_name"].get<std::string>());
+        if (json.contains("hand_name") && json["hand_name"].is_string()) {
+            return Event::anyPlayerHasEmptyDeck(playerList, json["hand_name"].get<std::string>());
         }
         throw std::invalid_argument("hand_zone_name missing from any_player_has_empty_deck event");
-        return false;
     };
 
     effectRegisterMap["game_over"] = [](PlayerList&, CardZoneMap&, GameState& gameState, const json& json) {
@@ -21,7 +20,7 @@ void EventsParser::init() {
 
 void EventsParser::parseEvent(EventManager& eventManager, const json& eventJson) {
     for (const auto& event: eventJson) {
-        eventManager.addEvent(event["event_name"], [this, event](PlayerList& playerList, CardZoneMap &cardZoneMap, GameState &gameState) {
+        eventManager.addEvent(event["eventName"], [this, event](PlayerList& playerList, CardZoneMap &cardZoneMap, GameState &gameState) {
             return eventRegisterMap.at(event["event"]["type"])(playerList, cardZoneMap, gameState, event["event"]);
         },[this, event](PlayerList &playerList, CardZoneMap &cardZoneMap, GameState &gameState) {
 

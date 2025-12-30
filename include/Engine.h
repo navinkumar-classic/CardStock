@@ -16,6 +16,7 @@
 
 #pragma once
 #include "ActionHandler.h"
+#include "ActionsParser.h"
 #include "Card.h"
 #include "EventManager.h"
 #include "EventsParser.h"
@@ -36,8 +37,6 @@ class Engine {
         GameState gameState;
         EventManager eventManager;
 
-        EventsParser eventsParser;
-
     private:
         void onInit();
         void update();
@@ -47,6 +46,9 @@ class Engine {
 
         std::vector<initExitFunction> initFunctions;
         std::vector<initExitFunction> exitFunctions;
+
+        EventsParser eventsParser;
+        ActionsParser actionsParser;
 
         validActions tempValidActions = {};
         json tempValidActionsJson = {};

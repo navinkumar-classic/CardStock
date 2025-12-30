@@ -35,6 +35,14 @@ Engine::Engine(const json& config) {
 
     gameState.set<bool>("isRunning", true);
     eventsParser.init();
+    actionsParser.init();
+
+    if (config.contains("initEvents") && config["initEvents"].is_array()) {
+        eventsParser.parseEvent(eventManager, config["initEvents"]);
+    }
+    if (config.contains("initActions") && config["initActions"].is_array()) {
+        actionsParser.parseAction(actionHandler, config["initActions"]);
+    }
 }
 
 void Engine::run() {

@@ -23,6 +23,7 @@
 
 using conditionFunction = std::function<std::pair<bool, std::vector<int>>(Player&, CardZoneMap&, GameState&)>;
 using actionFunction = std::function<bool(PlayerList&, CardZoneMap&, GameState&, int cardId)>;
+
 using validActions = std::vector<std::pair<std::string, std::vector<int>>>;
 
 class ActionHandler {

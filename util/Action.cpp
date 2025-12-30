@@ -1,7 +1,7 @@
 
 #include "Action.h"
 
-std::pair<bool, std::vector<int>> Action::checkAndTogglePlayerStateIfEqual(Player& player, const std::string& stateName, bool value) {
+std::pair<bool, std::vector<int>> Action::togglePlayerStateIfEqualAndFail(Player& player, const std::string& stateName, bool value) {
     if (player.state.has(stateName)) {
         if (player.state.get<bool>(stateName).value() == value) {
             player.state.set(stateName, !value);
@@ -9,6 +9,16 @@ std::pair<bool, std::vector<int>> Action::checkAndTogglePlayerStateIfEqual(Playe
         }
     }
     return std::make_pair<bool, std::vector<int>>(true, {-1});
+}
+
+std::pair<bool, std::vector<int>> Action::togglePlayerStateIfEqualAndPass(Player& player, const std::string& stateName, bool value) {
+    if (player.state.has(stateName)) {
+        if (player.state.get<bool>(stateName).value() == value) {
+            player.state.set(stateName, !value);
+            return std::make_pair<bool, std::vector<int>>(true, {-1});
+        }
+    }
+    return std::make_pair<bool, std::vector<int>>(false, {-1});
 }
 
 void Action::drawCardFromDeck(Player &player, CardZoneMap &cardZoneMap, const std::string& handName, const std::string& deckName, int numCards) {
@@ -46,4 +56,8 @@ std::pair<bool, std::vector<int>> Action::mergeResultsOr(const std::vector<std::
     }
 
     return std::make_pair<bool, std::vector<int>>(true, std::move(mergedResults));
+}
+
+Player& Action::getCurrentPlayer(PlayerList& playerList) {
+    return playerList.getCurrentPlayer();
 }

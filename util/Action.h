@@ -35,9 +35,8 @@ namespace Action {
         return std::make_pair<bool, std::vector<int>>(false, {-1});
     }
 
-    std::pair<bool, std::vector<int>> checkAndTogglePlayerStateIfEqual(Player& player, const std::string& stateName, bool value);
-
-
+    std::pair<bool, std::vector<int>> togglePlayerStateIfEqualAndFail(Player& player, const std::string& stateName, bool value);
+    std::pair<bool, std::vector<int>> togglePlayerStateIfEqualAndPass(Player& player, const std::string& stateName, bool value);
 
     void drawCardFromDeck(Player& player, CardZoneMap& cardZoneMap, const std::string& handName, const std::string& deckName, int numCards);
     void playCard(Player& player, CardZoneMap& cardZoneMap, const std::string& handName, const std::string& deckName, int cardIndex);
@@ -47,8 +46,8 @@ namespace Action {
         player.state.set<T>(stateName, value);
     }
 
-
-
     std::pair<bool, std::vector<int>> mergeResultsOr(const std::vector<std::pair<bool, std::vector<int>>>& results);
+
+    Player& getCurrentPlayer(PlayerList& playerList);
 
 }

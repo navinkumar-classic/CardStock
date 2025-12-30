@@ -1,0 +1,75 @@
+[
+    {
+        "actionName": "draw_card",
+        "condition": {
+            "type": "toggle_player_state_if_equal_and_fail",
+            "state": "drawn",
+            "value": true
+        },
+        "actions": [
+            {
+                "type": "draw_card_from_deck",
+                "player": "current",
+                "hand_name": "hand",
+                "deck_name": "deckClose",
+                "num_cards": 1
+            },
+            {
+                "type": "set_player_state",
+                "player": "current",
+                "state": "drawn",
+                "value": true
+            },
+            {
+                "type": "set_player_state",
+                "player": "current",
+                "state": "canSkip",
+                "value": true
+            },
+            {
+                "type": "go_to_start_phase"
+            }
+        ]
+    },
+    {
+        "actionName": "skip_turn",
+        "condition": {
+            "type": "toggle_player_state_if_equal_and_pass",
+            "state": "canSkip",
+            "value": true
+        },
+        "actions": []
+    },
+    {
+        "actionName": "play_card",
+        "condition": {
+            "type": "merge_results_or",
+            "args": [
+                {
+                    "type": "find_hand_cards_matching_card_property",
+                    "hand_name": "hand",
+                    "deck_name": "deckOpen",
+                    "state_name": "color",
+                    "state_type": "string",
+                    "card_location": "top"
+                },
+                {
+                    "type": "find_hand_cards_matching_card_property",
+                    "hand_name": "hand",
+                    "deck_name": "deckOpen",
+                    "state_name": "number",
+                    "state_type": "int",
+                    "card_location": "top"
+                }
+            ]
+        },
+        "actions": [
+            {
+                "type": "play_card",
+                "hand_name": "hand",
+                "deck_name": "deckOpen",
+                "player": "current"
+            }
+        ]
+    }
+]

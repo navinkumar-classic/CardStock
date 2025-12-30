@@ -1,0 +1,213 @@
+{
+    "players": [
+        {
+            "id": 0,
+            "name": "navin",
+            "state": {
+                "int": 1,
+                "bool": true,
+                "string": "string"
+            },
+            "cardZoneMap" : {
+                "cardZones": {
+                    "hand": {
+                        "hiddenGeneral": true,
+                        "hiddenPlayer": false,
+                        "cards": [
+                            {
+                                "id": 1,
+                                "cardProperty": {
+                                    "color": "yellow",
+                                    "number": 5
+                                },
+                                "tags": []
+                            },
+                            {
+                                "id": 2,
+                                "cardProperty": {
+                                    "color": "red",
+                                    "number": 7
+                                },
+                                "tags": []
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "id": 1,
+            "name": "vishal",
+            "cardZoneMap": {
+                "cardZones": {
+                    "hand": {
+                        "hiddenGeneral": false,
+                        "hiddenPlayer": true,
+                        "cards": [
+                            {
+                                "id": 6,
+                                "cardProperty": {
+                                    "color": "yellow",
+                                    "number": 1
+                                },
+                                "tags": []
+                            },
+                            {
+                                "id": 7,
+                                "cardProperty": {
+                                    "color": "red",
+                                    "number": 5
+                                },
+                                "tags": []
+                            }
+                        ]
+                    }
+                }
+            },
+            "state": {}
+        }
+    ],
+    "numPlayers": 2,
+    "gameState": {
+        "int": 101,
+        "bool": true,
+        "string": "engine config"
+    },
+    "cardZoneMap": {
+        "cardZones": {
+            "deckOpen": {
+                "hiddenGeneral": false,
+                "hiddenPlayer": false,
+                "cards": [
+                    {
+                        "id": 4,
+                        "cardProperty": {
+                            "color": "yellow",
+                            "number": 7
+                        },
+                        "tags": []
+                    },
+                    {
+                        "id": 5,
+                        "cardProperty": {
+                            "color": "green",
+                            "number": 7
+                        },
+                        "tags": []
+                    }
+                ]
+            },
+            "deckClose": {
+                "hiddenGeneral": false,
+                "hiddenPlayer": false,
+                "cards": [
+                    {
+                        "id": 8,
+                        "cardProperty": {
+                            "color": "yellow",
+                            "number": 1
+                        },
+                        "tags": []
+                    },
+                    {
+                        "id": 9,
+                        "cardProperty": {
+                            "color": "blue",
+                            "number": 2
+                        },
+                        "tags": []
+                    }
+                ]
+            }
+        }
+    },
+    "initEvents": [
+        {
+            "eventName": "end_game",
+            "event": {
+                "type": "any_player_has_empty_deck",
+                "hand_name": "hand"
+            },
+            "effects": [
+                {
+                    "type": "game_over"
+                }
+            ]
+        }
+    ],
+    "initActions": [
+        {
+            "actionName": "draw_card",
+            "condition": {
+                "type": "toggle_player_state_if_equal_and_fail",
+                "state": "drawn",
+                "value": true
+            },
+            "actions": [
+                {
+                    "type": "draw_card_from_deck",
+                    "player": "current",
+                    "hand_name": "hand",
+                    "deck_name": "deckClose",
+                    "num_cards": 1
+                },
+                {
+                    "type": "set_player_state",
+                    "player": "current",
+                    "state": "drawn",
+                    "value": true
+                },
+                {
+                    "type": "set_player_state",
+                    "player": "current",
+                    "state": "canSkip",
+                    "value": true
+                },
+                {
+                    "type": "go_to_start_phase"
+                }
+            ]
+        },
+        {
+            "actionName": "skip_turn",
+            "condition": {
+                "type": "toggle_player_state_if_equal_and_pass",
+                "state": "canSkip",
+                "value": true
+            },
+            "actions": []
+        },
+        {
+            "actionName": "play_card",
+            "condition": {
+                "type": "merge_results_or",
+                "args": [
+                    {
+                        "type": "find_hand_cards_matching_card_property",
+                        "hand_name": "hand",
+                        "deck_name": "deckOpen",
+                        "state_name": "color",
+                        "state_type": "string",
+                        "card_location": "top"
+                    },
+                    {
+                        "type": "find_hand_cards_matching_card_property",
+                        "hand_name": "hand",
+                        "deck_name": "deckOpen",
+                        "state_name": "number",
+                        "state_type": "int",
+                        "card_location": "top"
+                    }
+                ]
+            },
+            "actions": [
+                {
+                    "type": "play_card",
+                    "hand_name": "hand",
+                    "deck_name": "deckOpen",
+                    "player": "current"
+                }
+            ]
+        }
+    ]
+}
