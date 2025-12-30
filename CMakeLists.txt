@@ -16,6 +16,7 @@ add_library(CardStockCore
         src/EventManager.cpp
         util/Event.cpp
         util/Action.cpp
+        src/EventsParser.cpp
 )
 
 add_executable(CardStock

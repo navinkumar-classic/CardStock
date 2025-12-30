@@ -1,0 +1,14 @@
+[
+    {
+        "event_name": "end_game",
+        "event": {
+                "type": "any_player_has_empty_deck",
+                "hand_zone_name": "hand"
+        },
+        "effects": [
+            {
+                "type": "game_over"
+            }
+        ]
+    }
+]

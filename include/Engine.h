@@ -18,6 +18,7 @@
 #include "ActionHandler.h"
 #include "Card.h"
 #include "EventManager.h"
+#include "EventsParser.h"
 #include "PlayerList.h"
 
 using initExitFunction = std::function<void(PlayerList&, CardZoneMap&, GameState&)>;
@@ -34,6 +35,8 @@ class Engine {
         CardZoneMap cardZoneMap;
         GameState gameState;
         EventManager eventManager;
+
+        EventsParser eventsParser;
 
     private:
         void onInit();

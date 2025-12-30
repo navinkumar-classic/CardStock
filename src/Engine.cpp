@@ -34,6 +34,7 @@ Engine::Engine(const json& config) {
     }
 
     gameState.set<bool>("isRunning", true);
+    eventsParser.init();
 }
 
 void Engine::run() {
