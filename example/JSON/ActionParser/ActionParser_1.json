@@ -8,7 +8,7 @@
         },
         "actions": [
             {
-                "type": "draw_card_from_deck",
+                "type": "draw_card",
                 "player": "current",
                 "hand_name": "hand",
                 "deck_name": "deckClose",
@@ -27,7 +27,7 @@
                 "value": true
             },
             {
-                "type": "go_to_start_phase"
+                "type": "restart_turn"
             }
         ]
     },

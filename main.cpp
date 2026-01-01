@@ -1,9 +1,6 @@
-#include <iostream>
-#include <fstream>
 
+#include <fstream>
 #include "include/Engine.h"
-#include "util/Action.h"
-#include "util/Event.h"
 
 int main() {
     std::ifstream f("../example/JSON/FullGame/uno.json");

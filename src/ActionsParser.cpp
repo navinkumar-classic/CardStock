@@ -1,7 +1,7 @@
 #include "../include/ActionsParser.h"
 
-#include "../util/Action.h"
 #include "../util/Condition.h"
+#include "../util/EffectAction.h"
 
 void ActionsParser::initCondition() {
 
@@ -62,17 +62,17 @@ void ActionsParser::initCondition() {
 
 void ActionsParser::initAction() {
 
-    actionRegisterMap["go_to_start_phase"] = [](PlayerList &playerList, CardZoneMap &cardZoneMap, GameState &gameState,
+    actionRegisterMap["restart_turn"] = [](PlayerList &playerList, CardZoneMap &cardZoneMap, GameState &gameState,
                                                 int cardId, const json &json) {
-        Action::goToStartPhase(playerList);
+        EffectAction::TurnManager_::restartTurn(playerList);
         return true;
     };
 
-    actionRegisterMap["draw_card_from_deck"] = [](PlayerList &playerList, CardZoneMap &cardZoneMap,
+    actionRegisterMap["draw_card"] = [](PlayerList &playerList, CardZoneMap &cardZoneMap,
                                                   GameState &gameState, int cardId, const json &json) {
         if (json.contains("hand_name") && json.contains("deck_name") && json.contains("num_cards")) {
             if (json.contains("player") && json["player"].is_string() && json["player"] == "current") {
-                Action::drawCardFromDeck(Action::getCurrentPlayer(playerList), cardZoneMap, json["hand_name"],
+                EffectAction::Card_::drawCards(EffectAction::Player_::getCurrentPlayer(playerList), cardZoneMap, json["hand_name"],
                                          json["deck_name"], json["num_cards"]);
                 return true;
             }
@@ -87,19 +87,19 @@ void ActionsParser::initAction() {
         }
 
         Player &player = (json["player"].is_string() && json["player"] == "current")
-                             ? Action::getCurrentPlayer(playerList)
+                             ? EffectAction::Player_::getCurrentPlayer(playerList)
                              : playerList.at(json["player"].get<size_t>());
 
         const std::string stateName = json["state"];
 
         if (json["value"].is_number_integer()) {
-            Action::setPlayerState<int>(player, stateName, json["value"].get<int>());
+            EffectAction::Player_::setPlayerState<int>(player, stateName, json["value"].get<int>());
         } else if (json["value"].is_number_float()) {
-            Action::setPlayerState<float>(player, stateName, json["value"].get<float>());
+            EffectAction::Player_::setPlayerState<float>(player, stateName, json["value"].get<float>());
         } else if (json["value"].is_boolean()) {
-            Action::setPlayerState<bool>(player, stateName, json["value"].get<bool>());
+            EffectAction::Player_::setPlayerState<bool>(player, stateName, json["value"].get<bool>());
         } else if (json["value"].is_string()) {
-            Action::setPlayerState<std::string>(player, stateName, json["value"].get<std::string>());
+            EffectAction::Player_::setPlayerState<std::string>(player, stateName, json["value"].get<std::string>());
         } else {
             throw std::invalid_argument(
                 "Unsupported value type in set_player_state");
@@ -113,7 +113,7 @@ void ActionsParser::initAction() {
             throw std::invalid_argument("Incomplete json for play_card action");
         }
         if (json["player"].is_string() && json["player"] == "current") {
-            Action::playCard(Action::getCurrentPlayer(playerList), cardZoneMap, json["hand_name"], json["deck_name"], cardId);
+            EffectAction::Card_::playCard(EffectAction::Player_::getCurrentPlayer(playerList), cardZoneMap, json["hand_name"], json["deck_name"], cardId);
         }
         return true;
     };

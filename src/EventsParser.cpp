@@ -1,6 +1,6 @@
 #include "../include/EventsParser.h"
 
-#include "../util/Effect.h"
+#include "../util/EffectAction.h"
 #include "../util/Event.h"
 
 void EventsParser::initEvent() {
@@ -18,7 +18,7 @@ void EventsParser::initEffect() {
 
     effectRegisterMap["game_over"] = [](PlayerList&, CardZoneMap&, GameState& gameState, const json& json) {
         if (json.contains("type") && json["type"] == "game_over") {
-            Effect::gameOver(gameState);
+            EffectAction::Game_::gameOver(gameState);
             return true;
         }
         return false;

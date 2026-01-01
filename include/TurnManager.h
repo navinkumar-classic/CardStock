@@ -35,6 +35,9 @@ public:
     void init(size_t playerCount);
 
     [[nodiscard]] size_t getCurrentPlayerIndex() const;
+    [[nodiscard]] size_t getNextIthPlayerIndex(int i) const;
+    [[nodiscard]] size_t getPreviousIthPlayerIndex(int i) const;
+
     [[nodiscard]] size_t getTurnNumber() const;
     [[nodiscard]] TurnPhase getPhase() const;
 
@@ -43,6 +46,10 @@ public:
     void nextPhase();
     void goToStartPhase();
     void endTurn();
+    void reverseTurn();
+
+    void restartTurn();
+    void skipTurn(int skipCount);
 
 private:
     size_t currentPlayerIndex_;
@@ -50,5 +57,11 @@ private:
     TurnPhase currentPhase_;
     size_t playerCount_;
 
+    bool reverse_;
+    bool restart_;
+    bool skip_;
+    int skipCount_;
+
     void advanceToNextPlayer(int delta);
+    [[nodiscard]] size_t offsetIndex(int offset) const;
 };
